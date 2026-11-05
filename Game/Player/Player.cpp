@@ -13,7 +13,8 @@
 
 #include <utility>
 #include "Game/Screen.h"
-#include "IdleState.h"
+#include "PlayerConstants.h"
+#include "Game/Player/States/IdleState.h"
 
 
 
@@ -23,7 +24,7 @@
  */
 Player::Player()
 	: m_x{ 100.0f }
-	, m_y{ GROUND_Y }
+	, m_y{ PlayerConstants::GROUND_Y }
 	, m_velocityY{ 0.0f }
 	, m_facingRight{ true }
 	, m_keyCondition{ 0 }
@@ -80,8 +81,8 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 void Player::Render() const
 {
 	const int left   = static_cast<int>(m_x);
-	const int top    = static_cast<int>(m_y - HEIGHT);
-	const int right  = static_cast<int>(m_x + WIDTH);
+	const int top    = static_cast<int>(m_y - PlayerConstants::HEIGHT);
+	const int right  = static_cast<int>(m_x + PlayerConstants::WIDTH);
 	const int bottom = static_cast<int>(m_y);
 
 	// 本体（状態ごとの色）
@@ -143,9 +144,9 @@ void Player::MoveX(float dx)
 	{
 		m_x = 0.0f;
 	}
-	if (m_x > static_cast<float>(screenW) - WIDTH)
+	if (m_x > static_cast<float>(screenW) - PlayerConstants::WIDTH)
 	{
-		m_x = static_cast<float>(screenW) - WIDTH;
+		m_x = static_cast<float>(screenW) - PlayerConstants::WIDTH;
 	}
 }
 

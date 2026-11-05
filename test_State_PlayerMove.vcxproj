@@ -144,12 +144,12 @@
     <ClCompile Include="Game\Boss\BossPartState.cpp" />
     <ClCompile Include="Game\Boss\Tentacle.cpp" />
     <ClCompile Include="Game\Manager\InputManager.cpp" />
-    <ClCompile Include="Game\Player\AttackState.cpp" />
-    <ClCompile Include="Game\Player\IdleState.cpp" />
-    <ClCompile Include="Game\Player\JumpState.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Game\Player\PlayerState.cpp" />
-    <ClCompile Include="Game\Player\RunState .cpp" />
+    <ClCompile Include="Game\Player\States\AttackState.cpp" />
+    <ClCompile Include="Game\Player\States\IdleState.cpp" />
+    <ClCompile Include="Game\Player\States\JumpState.cpp" />
+    <ClCompile Include="Game\Player\States\RunState .cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -159,12 +159,13 @@
     <ClInclude Include="Game\Boss\Tentacle.h" />
     <ClInclude Include="Game\GameContext.h" />
     <ClInclude Include="Game\Manager\InputManager.h" />
-    <ClInclude Include="Game\Player\AttackState.h" />
-    <ClInclude Include="Game\Player\IdleState.h" />
-    <ClInclude Include="Game\Player\JumpState.h" />
     <ClInclude Include="Game\Player\Player.h" />
+    <ClInclude Include="Game\Player\PlayerConstants.h" />
     <ClInclude Include="Game\Player\PlayerState.h" />
-    <ClInclude Include="Game\Player\RunState.h" />
+    <ClInclude Include="Game\Player\States\AttackState.h" />
+    <ClInclude Include="Game\Player\States\IdleState.h" />
+    <ClInclude Include="Game\Player\States\JumpState.h" />
+    <ClInclude Include="Game\Player\States\RunState.h" />
     <ClInclude Include="Library\GameMath.h" />
     <ClInclude Include="pch.h" />
     <!-- メイン -->

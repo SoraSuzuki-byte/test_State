@@ -102,23 +102,23 @@
     <ClCompile Include="Game\Boss\Tentacle.cpp">
       <Filter>Game\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\AttackState.cpp">
-      <Filter>Game\Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player\IdleState.cpp">
-      <Filter>Game\Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player\JumpState.cpp">
-      <Filter>Game\Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player\RunState .cpp">
-      <Filter>Game\Player\States</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player\Player.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
     <ClCompile Include="Game\Player\PlayerState.cpp">
       <Filter>Game\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\AttackState.cpp">
+      <Filter>Game\Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\IdleState.cpp">
+      <Filter>Game\Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\JumpState.cpp">
+      <Filter>Game\Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\RunState .cpp">
+      <Filter>Game\Player\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,22 +149,25 @@
     <ClInclude Include="Game\Boss\IBossPartObserver.h">
       <Filter>Game\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Player\RunState.h">
-      <Filter>Game\Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player\AttackState.h">
-      <Filter>Game\Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player\IdleState.h">
-      <Filter>Game\Player\States</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Player\JumpState.h">
-      <Filter>Game\Player\States</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Player\Player.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
     <ClInclude Include="Game\Player\PlayerState.h">
+      <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\AttackState.h">
+      <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\IdleState.h">
+      <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\JumpState.h">
+      <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\RunState.h">
+      <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\PlayerConstants.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
   </ItemGroup>

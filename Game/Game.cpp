@@ -12,6 +12,8 @@
 #include "Game.h"
 
 #include "Game/Screen.h"
+#include "Game/Player/PlayerConstants.h"
+
 #include "Game/Player/Player.h"
 
 
@@ -103,7 +105,7 @@ void Game::Render()
 	// ゲームの描画
 
 	// 地面
-	DrawLine(0, static_cast<int>(Player::GROUND_Y), 1280, static_cast<int>(Player::GROUND_Y), GetColor(120, 120, 120));
+	DrawLine(0, static_cast<int>(PlayerConstants::GROUND_Y), 1280, static_cast<int>(PlayerConstants::GROUND_Y), GetColor(120, 120, 120));
 
 	// プレイヤー
 	m_player->Render();

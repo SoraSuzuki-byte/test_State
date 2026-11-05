@@ -13,7 +13,9 @@
 
 #include "Game/Screen.h"
 #include "Player.h"
-#include "IdleState.h"
+#include "PlayerConstants.h"
+#include "Game/Player/States/IdleState.h"
+#include "Game/Player/States/RunState.h"
 
 
 
@@ -21,10 +23,6 @@
 // 定数の定義 =================================================================
 namespace
 {
-	constexpr float MOVE_SPEED  = 240.0f;    // 移動速度（px/秒）
-	constexpr float JUMP_SPEED  = -700.0f;   // ジャンプの初速（px/秒、上向きが負）
-	constexpr float GRAVITY     = 2000.0f;   // 重力加速度（px/秒^2）
-	constexpr float ATTACK_TIME = 0.3f;      // 攻撃の持続時間（秒）
 }
 
 
@@ -32,41 +30,6 @@ namespace
 
 
 
-// ===========================================================================
-// RunState（走り）
-// ===========================================================================
-std::unique_ptr<PlayerState> RunState::Update(Player& player, float elapsedTime)
-{
-	// 攻撃（Xキー）
-	if (player.IsPressed(PAD_INPUT_2))
-	{
-		return std::make_unique<AttackState>();
-	}
-
-	// ジャンプ（Zキー）
-	if (player.IsPressed(PAD_INPUT_1))
-	{
-		return std::make_unique<JumpState>();
-	}
-
-	// 入力が無くなったら待機へ
-	const int direction = player.GetMoveDirection();
-	if (direction == 0)
-	{
-		return std::make_unique<IdleState>();
-	}
-
-	// 移動
-	player.SetFacingRight(direction > 0);
-	player.MoveX(direction * MOVE_SPEED * elapsedTime);
-
-	return nullptr;
-}
-
-unsigned int RunState::GetBodyColor() const
-{
-	return GetColor(80, 220, 120);   // 緑
-}
 
 
 
@@ -76,7 +39,7 @@ unsigned int RunState::GetBodyColor() const
 void JumpState::Enter(Player& player)
 {
 	// 上向きの初速を与える
-	player.SetVelocityY(JUMP_SPEED);
+	player.SetVelocityY(PlayerConstants::JUMP_SPEED);
 }
 
 std::unique_ptr<PlayerState> JumpState::Update(Player& player, float elapsedTime)
@@ -86,17 +49,17 @@ std::unique_ptr<PlayerState> JumpState::Update(Player& player, float elapsedTime
 	if (direction != 0)
 	{
 		player.SetFacingRight(direction > 0);
-		player.MoveX(direction * MOVE_SPEED * elapsedTime);
+		player.MoveX(direction * PlayerConstants::MOVE_SPEED * elapsedTime);
 	}
 
 	// 重力
-	player.SetVelocityY(player.GetVelocityY() + GRAVITY * elapsedTime);
+	player.SetVelocityY(player.GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
 	player.SetY(player.GetY() + player.GetVelocityY() * elapsedTime);
 
 	// 着地
-	if (player.GetY() >= Player::GROUND_Y)
+	if (player.GetY() >= PlayerConstants::GROUND_Y)
 	{
-		player.SetY(Player::GROUND_Y);
+		player.SetY(PlayerConstants::GROUND_Y);
 		player.SetVelocityY(0.0f);
 
 		if (direction != 0)
@@ -122,7 +85,7 @@ unsigned int JumpState::GetBodyColor() const
 void AttackState::Enter(Player& player)
 {
 	UNREFERENCED_PARAMETER(player);
-	m_timer = ATTACK_TIME;
+	m_timer = PlayerConstants::ATTACK_TIME;
 }
 
 std::unique_ptr<PlayerState> AttackState::Update(Player& player, float elapsedTime)
@@ -145,12 +108,12 @@ void AttackState::RenderEffect(const Player& player) const
 	const int attackW = 30;
 	const int attackH = 20;
 
-	const int top = static_cast<int>(player.GetY() - Player::HEIGHT) + 15;
+	const int top = static_cast<int>(player.GetY() - PlayerConstants::HEIGHT) + 15;
 
 	int left = static_cast<int>(player.GetX()) - attackW;   // 左向きのときの位置
 	if (player.IsFacingRight())
 	{
-		left = static_cast<int>(player.GetX() + Player::WIDTH);   // 右向きのときの位置
+		left = static_cast<int>(player.GetX() + PlayerConstants::WIDTH);   // 右向きのときの位置
 	}
 
 	DrawBox(left, top, left + attackW, top + attackH, GetColor(255, 180, 180), TRUE);

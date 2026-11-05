@@ -25,10 +25,6 @@
 class Player
 {
 // クラス定数の宣言 -------------------------------------------------
-public:
-	static constexpr float GROUND_Y = 400.0f;   ///< 地面のY座標（足元の位置）
-	static constexpr float WIDTH    = 40.0f;    ///< 幅
-	static constexpr float HEIGHT   = 60.0f;    ///< 高さ
 
 
 // データメンバの宣言 -----------------------------------------------
