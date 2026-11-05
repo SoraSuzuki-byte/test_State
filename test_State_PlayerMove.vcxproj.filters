@@ -105,9 +105,6 @@
     <ClCompile Include="Game\Player\Player.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\PlayerState.cpp">
-      <Filter>Game\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player\States\AttackState.cpp">
       <Filter>Game\Player\States</Filter>
     </ClCompile>

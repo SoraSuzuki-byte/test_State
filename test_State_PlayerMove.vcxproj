@@ -145,7 +145,6 @@
     <ClCompile Include="Game\Boss\Tentacle.cpp" />
     <ClCompile Include="Game\Manager\InputManager.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
-    <ClCompile Include="Game\Player\PlayerState.cpp" />
     <ClCompile Include="Game\Player\States\AttackState.cpp" />
     <ClCompile Include="Game\Player\States\IdleState.cpp" />
     <ClCompile Include="Game\Player\States\JumpState.cpp" />
