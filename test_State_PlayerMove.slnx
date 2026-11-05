@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="test_State_PlayerMove.vcxproj" Id="d460cd07-c0c4-46fa-8cd4-5d813df300b3" />
+</Solution>

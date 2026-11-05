@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Game" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAAAAAAAQAAAAAEAAAEAAiAgAAAABAAAAgIAAA=</HashCode>
+      <FileName>Game\Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Screen" Collapsed="true">
+    <Position X="17" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAIAgAAABAAAIAAAAQAAAAgAAAAAABAAAA=</HashCode>
+      <FileName>Game\Screen.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player" Collapsed="true">
+    <Position X="15.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAgAGAAABBAIAAAAAAgAAQAUACkAgYBAACQBAIBg=</HashCode>
+      <FileName>Game\Player\Player.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerState" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgAAABAAAAAAAAAAAAAAAEAAAAIAAAEAAABAA=</HashCode>
+      <FileName>Game\Player\PlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IdleState" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABAA=</HashCode>
+      <FileName>Game\Player\PlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RunState" Collapsed="true">
+    <Position X="8.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAABAA=</HashCode>
+      <FileName>Game\Player\PlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JumpState" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAABAA=</HashCode>
+      <FileName>Game\Player\PlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AttackState" Collapsed="true">
+    <Position X="4.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgAAAAAAAAAAAAAAAAAAAEAAAAAAAAEAAABAQ=</HashCode>
+      <FileName>Game\Player\PlayerState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossPart">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <NestedTypes>
+      <Enum Name="BossPart::PartType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Game\Boss\BossPart.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAABAQAAQBBQAFAAAAAAAAAABAYAGACBAUhAAAAAA=</HashCode>
+      <FileName>Game\Boss\BossPart.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BossPartState" Collapsed="true">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAEAAAAIAAAGAAABIA=</HashCode>
+      <FileName>Game\Boss\BossPartState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PartNormalState" Collapsed="true">
+    <Position X="8.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAABAA=</HashCode>
+      <FileName>Game\Boss\BossPartState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PartDamagedState" Collapsed="true">
+    <Position X="4.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAABAA=</HashCode>
+      <FileName>Game\Boss\BossPartState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PartBrokenState" Collapsed="true">
+    <Position X="6.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAABAA=</HashCode>
+      <FileName>Game\Boss\BossPartState.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InputManager" Collapsed="true">
+    <Position X="15.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAwAEAAAAAAAAQABAAAAAAAAAAAAAAEAAAAAIBAAAAA=</HashCode>
+      <FileName>Game\Manager\InputManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameLib::FrameTimer" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAgAAgAEABIABEEAAAABAAAigIAAAABARAAAAAAA=</HashCode>
+      <FileName>Library\GameLibTime.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="GameContext" Collapsed="true">
+    <Position X="13.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Game\GameContext.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Yu Gothic UI" Size="9.6" />
+</ClassDiagram>
