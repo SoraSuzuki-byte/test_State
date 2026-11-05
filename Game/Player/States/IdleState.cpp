@@ -10,7 +10,9 @@
 #include "pch.h"
 #include "IdleState.h"
 #include "Game/Player/Player.h"
-#include "Game/Player/States/RunState.h"
+#include "RunState.h"
+#include "JumpState.h"
+
 
 
 

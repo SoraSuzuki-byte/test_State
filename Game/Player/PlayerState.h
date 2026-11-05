@@ -61,17 +61,6 @@ public:
 
 
 
-/**
- * @brief ジャンプ（黄）
- */
-class JumpState : public PlayerState
-{
-public:
-	void Enter(Player& player) override;
-	std::unique_ptr<PlayerState> Update(Player& player, float elapsedTime) override;
-	unsigned int GetBodyColor() const override;
-	const wchar_t* GetName() const override { return L"Jump"; }
-};
 
 
 

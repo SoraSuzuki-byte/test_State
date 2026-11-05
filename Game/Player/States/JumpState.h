@@ -8,7 +8,19 @@
  * @date   2026年11月5日
  */
 #pragma once
-class JumpState
+#include "Game/Player/PlayerState.h"// 基底クラスを継承するので必須
+class Player;
+
+ /**
+  * @brief ジャンプ（黄）
+  */
+class JumpState : public PlayerState
 {
+public:
+	void Enter(Player& player) override;
+	std::unique_ptr<PlayerState> Update(Player& player, float elapsedTime) override;
+	unsigned int GetBodyColor() const override;
+	const wchar_t* GetName() const override { return L"Jump"; }
 };
+
 
