@@ -10,13 +10,14 @@
 
 // 多重インクルードの防止 =====================================================
 #pragma once
-#include <memory>
 
 
 // ヘッダファイルの読み込み ===================================================
 #include "PlayerState.h"
-
-
+#include "Game/Player/States/IdleState.h"
+#include "Game/Player/States/RunState.h"
+#include "Game/Player/States/JumpState.h"
+#include "Game/Player/States/AttackState.h"
 
 // クラスの定義 ===============================================================
 /**
@@ -24,9 +25,6 @@
  */
 class Player
 {
-// クラス定数の宣言 -------------------------------------------------
-
-
 // データメンバの宣言 -----------------------------------------------
 private:
 	// 位置・速度
@@ -39,7 +37,12 @@ private:
 	int m_keyTrigger;     ///< 押された瞬間のキー情報
 
 	// 状態
-	std::unique_ptr<PlayerState> m_state;   ///< 現在の状態
+	IdleState   m_idle;	 ///< 待機状態の実態
+	RunState    m_run;	 ///< 走り状態の実態
+	JumpState   m_jump;	 ///< ジャンプ状態の実態
+	AttackState m_attack;///< 攻撃状態の実態
+	PlayerState* m_state;   ///< 現在の状態
+
 
 
 // メンバ関数の宣言 -------------------------------------------------
@@ -61,7 +64,7 @@ public:
 	void Render() const;
 
 	// 状態の変更
-	void ChangeState(std::unique_ptr<PlayerState> nextState);
+	void ChangeState(PlayerState* nextState);
 
 	// X方向に移動（画面外に出ないよう制限する）
 	void MoveX(float dx);
@@ -81,13 +84,22 @@ public:
 
 // 取得/設定
 public:
+	// Stateの取得
+	PlayerState* GetIdleState()   { return &m_idle; }
+	PlayerState* GetRunState()    { return &m_run; }
+	PlayerState* GetJumpState()   { return &m_jump; }
+	PlayerState* GetAttackState() { return &m_attack; }
+
+	// 位置の取得とセット
 	float GetX() const { return m_x; }
 	float GetY() const { return m_y; }
 	void  SetY(float y) { m_y = y; }
 
+	// 速度の取得とセット
 	float GetVelocityY() const { return m_velocityY; }
 	void  SetVelocityY(float velocityY) { m_velocityY = velocityY; }
 
+	// 向いている向きの取得とセット
 	bool IsFacingRight() const { return m_facingRight; }
 	void SetFacingRight(bool facingRight) { m_facingRight = facingRight; }
 };

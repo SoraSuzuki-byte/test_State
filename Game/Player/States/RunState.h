@@ -18,7 +18,7 @@ class Player;
 class RunState : public PlayerState
 {
 public:
-	std::unique_ptr<PlayerState> Update(Player& player, float elapsedTime) override;
+	PlayerState* Update(Player& player, float elapsedTime) override;
 	unsigned int GetBodyColor() const override;
 	const wchar_t* GetName() const override { return L"Run"; }
 };

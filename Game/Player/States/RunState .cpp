@@ -19,25 +19,25 @@
  // ===========================================================================
  // RunState（走り）
  // ===========================================================================
-std::unique_ptr<PlayerState> RunState::Update(Player& player, float elapsedTime)
+PlayerState* RunState::Update(Player& player, float elapsedTime)
 {
 	// 攻撃（Xキー）
 	if (player.IsPressed(PAD_INPUT_2))
 	{
-		return std::make_unique<AttackState>();
+		return player.GetAttackState();
 	}
 
 	// ジャンプ（Zキー）
 	if (player.IsPressed(PAD_INPUT_1))
 	{
-		return std::make_unique<JumpState>();
+		return player.GetJumpState();
 	}
 
 	// 入力が無くなったら待機へ
 	const int direction = player.GetMoveDirection();
 	if (direction == 0)
 	{
-		return std::make_unique<IdleState>();
+		return player.GetIdleState();
 	}
 
 	// 移動

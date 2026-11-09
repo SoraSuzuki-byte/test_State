@@ -21,26 +21,26 @@
  // ===========================================================================
  // IdleState（待機）
  // ===========================================================================
-std::unique_ptr<PlayerState> IdleState::Update(Player& player, float elapsedTime)
+PlayerState* IdleState::Update(Player& player, float elapsedTime)
 {
 	(void)elapsedTime;
 
 	// 攻撃（Xキー）
 	if (player.IsPressed(PAD_INPUT_2))
 	{
-		return std::make_unique<AttackState>();
+		return player.GetAttackState();
 	}
 
 	// ジャンプ（Zキー）
 	if (player.IsPressed(PAD_INPUT_1))
 	{
-		return std::make_unique<JumpState>();
+		return player.GetJumpState();
 	}
 
 	// 左右に入力があれば走る
 	if (player.GetMoveDirection() != 0)
 	{
-		return std::make_unique<RunState>();
+		return player.GetRunState();
 	}
 
 	return nullptr;

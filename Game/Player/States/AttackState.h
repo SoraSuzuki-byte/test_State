@@ -21,7 +21,7 @@ private:
 
 public:
 	void Enter(Player& player) override;
-	std::unique_ptr<PlayerState> Update(Player& player, float elapsedTime) override;
+	PlayerState* Update(Player& player, float elapsedTime) override;
 	void RenderEffect(const Player& player) const override;
 	unsigned int GetBodyColor() const override;
 	const wchar_t* GetName() const override { return L"Attack"; }

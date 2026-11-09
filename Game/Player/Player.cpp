@@ -11,10 +11,8 @@
 // ヘッダファイルの読み込み ===================================================
 #include "Player.h"
 
-#include <utility>
 #include "Game/Screen.h"
 #include "PlayerConstants.h"
-#include "Game/Player/States/IdleState.h"
 
 
 
@@ -32,7 +30,7 @@ Player::Player()
 	, m_state{ nullptr }
 {
 	// 最初は待機状態
-	ChangeState(std::make_unique<IdleState>());
+	ChangeState(&m_idle);
 }
 
 
@@ -65,13 +63,13 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 		
 
 	// 現在の状態に処理を任せ、遷移先があれば切り替える
-	std::unique_ptr<PlayerState> nextState = m_state->Update(*this, elapsedTime);
+	PlayerState* nextState = m_state->Update(*this, elapsedTime);
 	if (nextState)
 	{
-		ChangeState(std::move(nextState)); // std::unique_ptr の所有権を移動するために std::move を使用)
-											// std::move() は、オブジェクトを移動可能なものとして扱うための関数です。
+		ChangeState(nextState);
 	}
 }
+
 
 
 
@@ -111,18 +109,16 @@ void Player::Render() const
  *
  * @param[in] nextState 次の状態
  */
-void Player::ChangeState(std::unique_ptr<PlayerState> nextState)
+void Player::ChangeState(PlayerState* nextState)
 {
 	if (m_state) // nullptrじゃなければ
 	{
-		m_state->Exit(*this);		// ①古いStateがまだ生きている間に、終了処理を呼ぶ
+		m_state->Exit(*this);		// ①終了処理を呼ぶ
 	}
 
-	m_state = std::move(nextState);	// ②古いStateが delete され、新しいStateに入れ替わる
-									// (std::unique_ptr の所有権を移動するために std::move を使用)
-									// std::move() は、オブジェクトを移動可能なものとして扱うための関数です。
+	m_state = nextState;			// ②ポインタの代入
 
-	m_state->Enter(*this);			 // ③新しいStateの開始処理を呼ぶ
+	m_state->Enter(*this);			// ③新しいStateの開始処理を呼ぶ
 }
 
 

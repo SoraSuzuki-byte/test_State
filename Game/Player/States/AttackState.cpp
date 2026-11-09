@@ -22,7 +22,7 @@ void AttackState::Enter(Player& player)
 	m_timer = PlayerConstants::ATTACK_TIME;
 }
 
-std::unique_ptr<PlayerState> AttackState::Update(Player& player, float elapsedTime)
+PlayerState* AttackState::Update(Player& player, float elapsedTime)
 {
 	UNREFERENCED_PARAMETER(player);
 
@@ -30,7 +30,7 @@ std::unique_ptr<PlayerState> AttackState::Update(Player& player, float elapsedTi
 	m_timer -= elapsedTime;
 	if (m_timer <= 0.0f)
 	{
-		return std::make_unique<IdleState>();
+		return player.GetIdleState();
 	}
 
 	return nullptr;

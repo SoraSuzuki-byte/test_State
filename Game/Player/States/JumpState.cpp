@@ -25,7 +25,7 @@ void JumpState::Enter(Player& player)
 	player.SetVelocityY(PlayerConstants::JUMP_SPEED);
 }
 
-std::unique_ptr<PlayerState> JumpState::Update(Player& player, float elapsedTime)
+PlayerState* JumpState::Update(Player& player, float elapsedTime)
 {
 	// 空中でも左右に動ける
 	const int direction = player.GetMoveDirection();
@@ -47,9 +47,9 @@ std::unique_ptr<PlayerState> JumpState::Update(Player& player, float elapsedTime
 
 		if (direction != 0)
 		{
-			return std::make_unique<RunState>();
+			return player.GetRunState();
 		}
-		return std::make_unique<IdleState>();
+		return player.GetIdleState();
 	}
 
 	return nullptr;

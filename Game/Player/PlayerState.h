@@ -12,7 +12,6 @@
 #pragma once
 #include <memory>
 
-
 // クラスの宣言 ===============================================================
 class Player;
 
@@ -25,7 +24,7 @@ class Player;
  * Update は「次の状態」を返す。状態が変わらないときは nullptr を返す。
  */
 class PlayerState
-{
+{	
 // メンバ関数の宣言 -------------------------------------------------
 public:
 	// デストラクタ
@@ -38,7 +37,7 @@ public:
 	} // UNREFERENCED_PARAMETER(player); を書く理由 → player を使用しない場合に、未使用引数の警告が出ないようにするため。
 
 	// 更新処理（遷移先の状態を返す。遷移しないなら nullptr）
-	virtual std::unique_ptr<PlayerState> Update(Player& player, float elapsedTime) = 0;
+	virtual PlayerState* Update(Player& player, float elapsedTime) = 0;
 
 	// 状態から出る時の処理
 	virtual void Exit(Player& player) { UNREFERENCED_PARAMETER(player); }
