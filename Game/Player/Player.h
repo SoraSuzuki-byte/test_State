@@ -103,7 +103,9 @@ public:
 	void  SetY(float y) { m_y = y; }
 
 	// 速度の取得とセット
+	float GetVelocityX() const { return m_velocityX; }
 	float GetVelocityY() const { return m_velocityY; }
+	void  SetVelocityX(float velocityX) { m_velocityX = velocityX; }
 	void  SetVelocityY(float velocityY) { m_velocityY = velocityY; }
 
 	// 向いている向きの取得とセット

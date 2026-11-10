@@ -22,8 +22,6 @@
 /// </summary>
 Player::Player()
 {
-	// 最初は待機状態
-	ChangeState(&m_idle);
 }
 
 
@@ -45,6 +43,9 @@ Player::~Player()
 /// </summary>
 void Player::Initialize()
 {
+	// 最初は IdleState
+	ChangeState(&m_idle);
+
 	m_x = 100.0f;
 	m_y = PlayerConstants::GROUND_Y;
 }
