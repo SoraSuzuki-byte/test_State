@@ -144,6 +144,7 @@
     <ClCompile Include="Game\Boss\BossPartState.cpp" />
     <ClCompile Include="Game\Boss\Tentacle.cpp" />
     <ClCompile Include="Game\Manager\InputManager.cpp" />
+    <ClCompile Include="Game\Player\AirState.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Game\Player\States\AttackState.cpp" />
     <ClCompile Include="Game\Player\States\FallState.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Game\Boss\Tentacle.h" />
     <ClInclude Include="Game\GameContext.h" />
     <ClInclude Include="Game\Manager\InputManager.h" />
+    <ClInclude Include="Game\Player\AirState.h" />
     <ClInclude Include="Game\Player\Player.h" />
     <ClInclude Include="Game\Player\PlayerConstants.h" />
     <ClInclude Include="Game\Player\PlayerState.h" />

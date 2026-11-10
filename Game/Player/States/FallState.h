@@ -8,16 +8,14 @@
  * @date   2026年11月10日
  */
 #pragma once
-#include "Game/Player/PlayerState.h"// 基底クラスを継承するので必須
-class Player;
+#include "Game/Player/AirState.h"// 基底クラスを継承するので必須
 
  /**
   * @brief 落下（オレンジ（橙））
   */
-class FallState : public PlayerState
+class FallState : public AirState
 {
 public:
-	PlayerState* Update(Player& player, float elapsedTime) override;
 	unsigned int GetBodyColor() const override;
 	const wchar_t* GetName() const override { return L"Fall"; }
 };
