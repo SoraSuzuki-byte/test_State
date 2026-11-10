@@ -80,9 +80,9 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 
 
 
-/**
- * @brief 描画処理
- */
+/// <summary>
+/// 描画
+/// </summary>
 void Player::Render() const
 {
 	const int left   = static_cast<int>(m_x);
@@ -111,11 +111,11 @@ void Player::Render() const
 
 
 
-/**
- * @brief 状態の変更
- *
- * @param[in] nextState 次の状態
- */
+
+/// <summary>
+/// Stateの変更
+/// </summary>
+/// <param name="nextState">次のState</param>
 void Player::ChangeState(PlayerState* nextState)
 {
 	if (m_state) // nullptrじゃなければ
@@ -130,11 +130,11 @@ void Player::ChangeState(PlayerState* nextState)
 
 
 
-/**
- * @brief X方向に移動（画面外に出ないよう制限する）
- *
- * @param[in] dx 移動量
- */
+
+/// <summary>
+/// X方向に移動（画面外に出ないよう制限する）
+/// </summary>
+/// <param name="dx">移動量</param>
 void Player::MoveX(float dx)
 {
 	int screenW = 0;
@@ -155,9 +155,12 @@ void Player::MoveX(float dx)
 
 
 
-/**
- * @brief ボタンが押されているか
- */
+
+/// <summary>
+/// ボタンが押されているか
+/// </summary>
+/// <param name="button">押されたボタン</param>
+/// <returns>押されたボタンを返す</returns>
 bool Player::IsHeld(int button) const
 {
 	return (m_keyCondition & button) != 0;
@@ -165,9 +168,12 @@ bool Player::IsHeld(int button) const
 
 
 
-/**
- * @brief ボタンが押された瞬間か
- */
+
+/// <summary>
+/// ボタンが押された"瞬間"か
+/// </summary>
+/// <param name="button">押されたボタン</param>
+/// <returns>押されたボタンを返す</returns>
 bool Player::IsPressed(int button) const
 {
 	return (m_keyTrigger & button) != 0;
@@ -175,9 +181,11 @@ bool Player::IsPressed(int button) const
 
 
 
-/**
- * @brief 左右入力（左:-1, なし:0, 右:1）
- */
+
+/// <summary>
+/// 左右入力（左:-1, なし:0, 右:1）
+/// </summary>
+/// <returns>X軸の移動量</returns>
 int Player::GetMoveDirection() const
 {
 	int direction = 0;
@@ -188,6 +196,9 @@ int Player::GetMoveDirection() const
 	return direction;
 }
 
+
+
+
 /// <summary>
 /// 攻撃できるかを返す
 /// </summary>
@@ -196,6 +207,8 @@ bool Player::CanAttack() const
 {
 	return m_attackCooldown <= 0.0f;
 }
+
+
 
 
 /// <summary>
