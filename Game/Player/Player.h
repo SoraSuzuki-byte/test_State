@@ -33,6 +33,10 @@ private:
 	float m_velocityY;      ///< Y方向の速度（下向きが正）
 	bool  m_facingRight;    ///< 右向きか
 
+	// 攻撃用クールダウン
+	float m_attackCooldown{};
+
+	// キー入力
 	int m_keyCondition;   ///< 現在のキー情報（押している間）
 	int m_keyTrigger;     ///< 押された瞬間のキー情報
 
@@ -84,11 +88,18 @@ public:
 
 // 取得/設定
 public:
+	// 攻撃できるかを返す
+	bool CanAttack() const;
+
+	// クールダウンタイムのセット
+	void StartAttackCooldown();
+
 	// Stateの取得
 	PlayerState* GetIdleState()   { return &m_idle; }
 	PlayerState* GetRunState()    { return &m_run; }
 	PlayerState* GetJumpState()   { return &m_jump; }
 	PlayerState* GetAttackState() { return &m_attack; }
+
 
 	// 位置の取得とセット
 	float GetX() const { return m_x; }

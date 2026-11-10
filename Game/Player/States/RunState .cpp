@@ -21,8 +21,9 @@
  // ===========================================================================
 PlayerState* RunState::Update(Player& player, float elapsedTime)
 {
-	// 攻撃（Xキー）
-	if (player.IsPressed(PAD_INPUT_2))
+	// 攻撃（Xキー && 攻撃のクールダウンタイムが終わっていれば）
+	if (player.IsPressed(PAD_INPUT_2)
+		&& player.CanAttack())
 	{
 		return player.GetAttackState();
 	}

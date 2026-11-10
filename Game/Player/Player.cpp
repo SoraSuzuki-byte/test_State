@@ -59,7 +59,14 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 	m_keyCondition = keyCondition;
 	m_keyTrigger = keyTrigger;
 
-	
+	// クールダウンの処理
+	if (m_attackCooldown > 0.0f) {
+		m_attackCooldown-= elapsedTime;
+
+		if (m_attackCooldown < 0.0f) {
+			m_attackCooldown = 0.0f;
+		}
+	}
 		
 
 	// 現在の状態に処理を任せ、遷移先があれば切り替える
@@ -179,4 +186,22 @@ int Player::GetMoveDirection() const
 	if (IsHeld(PAD_INPUT_LEFT))  { direction -= 1; }
 
 	return direction;
+}
+
+/// <summary>
+/// 攻撃できるかを返す
+/// </summary>
+/// <returns>攻撃可能か</returns>
+bool Player::CanAttack() const
+{
+	return m_attackCooldown <= 0.0f;
+}
+
+
+/// <summary>
+/// クールダウンタイムのセット
+/// </summary>
+void Player::StartAttackCooldown()
+{
+	m_attackCooldown = PlayerConstants::ATTACK_COOLDOWN;
 }

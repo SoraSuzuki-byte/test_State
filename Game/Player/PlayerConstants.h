@@ -21,4 +21,5 @@ namespace PlayerConstants
 	constexpr float JUMP_SPEED  = -700.0f; ///< ジャンプの初速（px/秒、上向きが負）
 	constexpr float GRAVITY     = 2000.0f; ///< 重力加速度（px/秒^2）
 	constexpr float ATTACK_TIME = 0.3f;    ///< 攻撃の持続時間（秒）
+	constexpr float ATTACK_COOLDOWN = 0.3f;///< 攻撃のクールダウン（秒）
 }

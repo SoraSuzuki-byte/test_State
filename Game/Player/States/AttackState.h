@@ -25,5 +25,6 @@ public:
 	void RenderEffect(const Player& player) const override;
 	unsigned int GetBodyColor() const override;
 	const wchar_t* GetName() const override { return L"Attack"; }
+	void Exit(Player& player) override;
 };
 
