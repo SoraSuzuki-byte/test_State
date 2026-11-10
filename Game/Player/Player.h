@@ -116,7 +116,9 @@ public:
 	bool IsFacingRight() const { return m_facingRight; }
 	void SetFacingRight(bool facingRight) { m_facingRight = facingRight; }
 
-	// 重力を適応する
+	// 重力の処理
+	void ApplyGravity(float elapsedTime);
+
 	bool ApplyGravityAndLand(float elapsedTime);
 
 	// 着地しているかどうか

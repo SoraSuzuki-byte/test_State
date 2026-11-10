@@ -232,15 +232,23 @@ void Player::StartAttackCooldown()
 
 
 /// <summary>
-/// 重力の適応
+/// 重力の処理
+/// </summary>
+void Player::ApplyGravity(float elapsedTime)
+{
+	SetVelocityY(GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
+	SetY(GetY() + GetVelocityY() * elapsedTime);
+}
+
+/// <summary>
+/// 地面に付いているかを判定
 /// </summary>
 /// <param name="elapsedTime">経過時間</param>
 /// <returns>着地しているかを返す</returns>
 bool Player::ApplyGravityAndLand(float elapsedTime)
 {
-	// 重力
-	SetVelocityY(GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
-	SetY(GetY() + GetVelocityY() * elapsedTime);
+	// 重力の処理
+	ApplyGravity(elapsedTime);
 
 	// 着地
 	if (IsGrounded())
