@@ -60,6 +60,9 @@ void Game::Initialize()
 	m_gameContext.inputManager.Initialize();
 
 	m_player = std::make_unique<Player>();
+
+	m_player->Initialize();
+
 }
 
 

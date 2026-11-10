@@ -16,18 +16,11 @@
 
 
 
-// メンバ関数の定義 ===========================================================
-/**
- * @brief デフォルトコンストラクタ
- */
+
+/// <summary>
+/// コンストラクタ
+/// </summary>
 Player::Player()
-	: m_x{ 100.0f }
-	, m_y{ PlayerConstants::GROUND_Y }
-	, m_velocityY{ 0.0f }
-	, m_facingRight{ true }
-	, m_keyCondition{ 0 }
-	, m_keyTrigger{ 0 }
-	, m_state{ nullptr }
 {
 	// 最初は待機状態
 	ChangeState(&m_idle);
@@ -35,13 +28,27 @@ Player::Player()
 
 
 
-/**
- * @brief デストラクタ
- */
+
+/// <summary>
+/// デストラクタ
+/// </summary>
 Player::~Player()
 {
 
 }
+
+
+
+
+/// <summary>
+/// 初期化
+/// </summary>
+void Player::Initialize()
+{
+	m_x = 100.0f;
+	m_y = PlayerConstants::GROUND_Y;
+}
+
 
 
 

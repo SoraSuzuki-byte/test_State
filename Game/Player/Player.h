@@ -28,43 +28,38 @@ class Player
 // データメンバの宣言 -----------------------------------------------
 private:
 	// 位置・速度
-	float m_x;              ///< X座標（左端）
-	float m_y;              ///< Y座標（足元）
-	float m_velocityY;      ///< Y方向の速度（下向きが正）
-	bool  m_facingRight;    ///< 右向きか
+	float m_x{};            ///< X座標（左端）
+	float m_y{};            ///< Y座標（足元）
+	float m_velocityX{};    ///< X方向の速度
+	float m_velocityY{};    ///< Y方向の速度
+	bool  m_facingRight{true}; ///< 右向きか
 
 	// 攻撃用クールダウン
 	float m_attackCooldown{};
 
 	// キー入力
-	int m_keyCondition;   ///< 現在のキー情報（押している間）
-	int m_keyTrigger;     ///< 押された瞬間のキー情報
+	int m_keyCondition{};   ///< 現在のキー情報（押している間）
+	int m_keyTrigger  {};   ///< 押された瞬間のキー情報
 
 	// 状態
-	IdleState   m_idle;	 ///< 待機状態の実態
-	RunState    m_run;	 ///< 走り状態の実態
-	JumpState   m_jump;	 ///< ジャンプ状態の実態
-	AttackState m_attack;///< 攻撃状態の実態
-	PlayerState* m_state;   ///< 現在の状態
+	IdleState   m_idle;	    ///< 待機状態の実態
+	RunState    m_run;	    ///< 走り状態の実態
+	JumpState   m_jump;	    ///< ジャンプ状態の実態
+	AttackState m_attack;   ///< 攻撃状態の実態
+	PlayerState* m_state{nullptr}; ///< 現在の状態
 
 
 
 // メンバ関数の宣言 -------------------------------------------------
-// コンストラクタ/デストラクタ
 public:
-	// コンストラクタ
+// コンストラクタ / デストラクタ
 	Player();
-
-	// デストラクタ
 	~Player();
-
-
 // 操作
 public:
-	// 更新処理
+	// 初期化・更新・描画
+	void Initialize();
 	void Update(float elapsedTime, int keyCondition, int keyTrigger);
-
-	// 描画処理
 	void Render() const;
 
 	// 状態の変更
@@ -104,6 +99,7 @@ public:
 	// 位置の取得とセット
 	float GetX() const { return m_x; }
 	float GetY() const { return m_y; }
+	void  SetX(float x) { m_x = x; }
 	void  SetY(float y) { m_y = y; }
 
 	// 速度の取得とセット
