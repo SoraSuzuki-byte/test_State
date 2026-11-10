@@ -43,11 +43,11 @@ Player::~Player()
 /// </summary>
 void Player::Initialize()
 {
-	// 最初は IdleState
-	ChangeState(&m_idle);
-
 	m_x = 100.0f;
 	m_y = PlayerConstants::GROUND_Y;
+
+	// 最初は IdleState
+	ChangeState(&m_idle);
 }
 
 
@@ -115,6 +115,8 @@ void Player::Render() const
 	// デバッグ表示
 	DrawString(10, 10, L"State:", GetColor(255, 255, 255));
 	DrawString(70, 10, m_state->GetName(), GetColor(255, 255, 255));
+	DrawFormatString(10, 50, GetColor(255, 255, 255), L"VelX: %.1f", m_velocityX);
+	DrawFormatString(10, 100, GetColor(255, 255, 255), L"VelY: %.1f", m_velocityY);
 }
 
 
@@ -225,4 +227,41 @@ bool Player::CanAttack() const
 void Player::StartAttackCooldown()
 {
 	m_attackCooldown = PlayerConstants::ATTACK_COOLDOWN;
+}
+
+
+
+/// <summary>
+/// 重力の適応
+/// </summary>
+/// <param name="elapsedTime">経過時間</param>
+/// <returns>着地しているかを返す</returns>
+bool Player::ApplyGravityAndLand(float elapsedTime)
+{
+	// 重力
+	SetVelocityY(GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
+	SetY(GetY() + GetVelocityY() * elapsedTime);
+
+	// 着地
+	if (IsGrounded())
+	{
+		SetY(PlayerConstants::GROUND_Y);
+		SetVelocityY(0.0f);
+		return true;
+	}
+	return false;
+
+	// NOTE:この関数は、複数の処理を担当してしまっており、単一責任ではない
+	//       しかし、分けないことで使いやすくしている（初心者プログラマにとって）
+	// 
+	// できれば、リファクタリングで分けて！！
+}
+
+/// <summary>
+/// 着地しているかどうか を返す
+/// </summary>
+/// <returns>着地しているか</returns>
+bool Player::IsGrounded() const
+{
+	 return (GetY() >= PlayerConstants::GROUND_Y);
 }

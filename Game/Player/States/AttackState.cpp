@@ -27,6 +27,9 @@ void AttackState::Enter(Player& player)
 	m_timer = PlayerConstants::ATTACK_TIME;
 }
 
+
+
+
 /// <summary>
 /// このStateの更新
 /// </summary>
@@ -35,17 +38,34 @@ void AttackState::Enter(Player& player)
 /// <returns>次に切り替わるState</returns>
 PlayerState* AttackState::Update(Player& player, float elapsedTime)
 {
-	UNREFERENCED_PARAMETER(player);
+	// 重力を適応
+	player.ApplyGravityAndLand(elapsedTime);
+
+	// 着地していれば
+	if (player.IsGrounded())
+	{
+		player.SetVelocityX(0.0f);
+	}
+
+	// 保存された velocityXで、移動する
+	player.MoveX((player.GetVelocityX()) * (elapsedTime));
 
 	// 持続時間が終わったら待機へ
 	m_timer -= elapsedTime;
 	if (m_timer <= 0.0f)
 	{
-		return player.GetIdleState();
+		if (player.IsGrounded())
+		{
+			return player.GetIdleState();
+		}
+		return player.GetFallState();
 	}
 
 	return nullptr;
 }
+
+
+
 
 /// <summary>
 /// 描画
@@ -68,6 +88,9 @@ void AttackState::RenderEffect(const Player& player) const
 	DrawBox(left, top, left + attackW, top + attackH, GetColor(255, 180, 180), TRUE);
 }
 
+
+
+
 /// <summary>
 /// 色を取得する
 /// </summary>
@@ -76,6 +99,8 @@ unsigned int AttackState::GetBodyColor() const
 {
 	return GetColor(255, 90, 90);   // 赤
 }
+
+
 
 /// <summary>
 /// 別のStateに切り替わる瞬間に 呼ばれる関数

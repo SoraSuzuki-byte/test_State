@@ -146,6 +146,7 @@
     <ClCompile Include="Game\Manager\InputManager.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
     <ClCompile Include="Game\Player\States\AttackState.cpp" />
+    <ClCompile Include="Game\Player\States\FallState.cpp" />
     <ClCompile Include="Game\Player\States\IdleState.cpp" />
     <ClCompile Include="Game\Player\States\JumpState.cpp" />
     <ClCompile Include="Game\Player\States\RunState .cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Game\Player\PlayerConstants.h" />
     <ClInclude Include="Game\Player\PlayerState.h" />
     <ClInclude Include="Game\Player\States\AttackState.h" />
+    <ClInclude Include="Game\Player\States\FallState.h" />
     <ClInclude Include="Game\Player\States\IdleState.h" />
     <ClInclude Include="Game\Player\States\JumpState.h" />
     <ClInclude Include="Game\Player\States\RunState.h" />

@@ -17,20 +17,22 @@
 
 
 
+/// <summary>
+/// Stateが切り替わった瞬間に呼ばれる関数
+/// </summary>
+/// <param name="player">Playerの参照</param>
+void IdleState::Enter(Player& player)
+{
+	player.SetVelocityX(0.0f);
+}
 
- // ===========================================================================
+// ===========================================================================
  // IdleState（待機）
  // ===========================================================================
 PlayerState* IdleState::Update(Player& player, float elapsedTime)
 {
 	(void)elapsedTime;
 
-	// 攻撃（Xキー && 攻撃のクールダウンタイムが終わっていれば）
-	if (player.IsPressed(PAD_INPUT_2) 
-		&&player.CanAttack())
-	{
-		return player.GetAttackState();
-	}
 
 	// ジャンプ（Zキー）
 	if (player.IsPressed(PAD_INPUT_1))
@@ -44,6 +46,12 @@ PlayerState* IdleState::Update(Player& player, float elapsedTime)
 		return player.GetRunState();
 	}
 
+	// 攻撃（Xキー && 攻撃のクールダウンタイムが終わっていれば）
+	if (player.IsPressed(PAD_INPUT_2) 
+		&&player.CanAttack())
+	{
+		return player.GetAttackState();
+	}
 	return nullptr;
 }
 

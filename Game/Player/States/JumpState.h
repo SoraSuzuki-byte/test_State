@@ -1,7 +1,7 @@
 ﻿/**
  * @file   JumpState.h
  *
- * @brief  プレイヤーのJump状態のソースファイル
+ * @brief  プレイヤーのJump状態のヘッダファイル
  *
  * @author 鈴木蒼良
  *

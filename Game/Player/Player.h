@@ -18,6 +18,8 @@
 #include "Game/Player/States/RunState.h"
 #include "Game/Player/States/JumpState.h"
 #include "Game/Player/States/AttackState.h"
+#include "Game/Player/States/FallState.h"
+
 
 // クラスの定義 ===============================================================
 /**
@@ -46,6 +48,7 @@ private:
 	RunState    m_run;	    ///< 走り状態の実態
 	JumpState   m_jump;	    ///< ジャンプ状態の実態
 	AttackState m_attack;   ///< 攻撃状態の実態
+	FallState   m_fall;     ///< 落下状態の実体
 	PlayerState* m_state{nullptr}; ///< 現在の状態
 
 
@@ -94,6 +97,7 @@ public:
 	PlayerState* GetRunState()    { return &m_run; }
 	PlayerState* GetJumpState()   { return &m_jump; }
 	PlayerState* GetAttackState() { return &m_attack; }
+	PlayerState* GetFallState()   { return &m_fall; }
 
 
 	// 位置の取得とセット
@@ -111,4 +115,10 @@ public:
 	// 向いている向きの取得とセット
 	bool IsFacingRight() const { return m_facingRight; }
 	void SetFacingRight(bool facingRight) { m_facingRight = facingRight; }
+
+	// 重力を適応する
+	bool ApplyGravityAndLand(float elapsedTime);
+
+	// 着地しているかどうか
+	bool IsGrounded() const;
 };

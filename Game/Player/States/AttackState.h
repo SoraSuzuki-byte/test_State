@@ -1,7 +1,7 @@
 ﻿/**
  * @file   AttackState.h
  *
- * @brief  プレイヤーのAttack状態のヘッダーファイル
+ * @brief  プレイヤーのAttack状態のヘッダファイル
  *
  * @author 鈴木蒼良
  *

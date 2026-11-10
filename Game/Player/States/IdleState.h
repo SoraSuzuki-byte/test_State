@@ -1,7 +1,7 @@
 ﻿/**
  * @file   IdleState.h
  *
- * @brief  プレイヤーのIdle状態のヘッダーファイル
+ * @brief  プレイヤーのIdle状態のヘッダファイル
  *
  * @author 鈴木蒼良
  *
@@ -18,6 +18,7 @@ class Player;
 class IdleState : public PlayerState
 {
 public:
+	void Enter(Player& player) override;
 	PlayerState* Update(Player& player, float elapsedTime) override;
 	//unsignedは、「負の数を扱わない」
 	unsigned int GetBodyColor() const override;
