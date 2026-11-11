@@ -38,9 +38,6 @@ void AttackState::Enter(Player& player)
 /// <returns>次に切り替わるState</returns>
 PlayerState* AttackState::Update(Player& player, float elapsedTime)
 {
-	// 重力を適応
-	player.ApplyGravityAndLand(elapsedTime);
-
 	// 着地していれば
 	if (player.IsGrounded())
 	{

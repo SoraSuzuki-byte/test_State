@@ -120,8 +120,6 @@ public:
 	// 重力の処理
 	void ApplyGravity(float elapsedTime);
 
-	bool ApplyGravityAndLand(float elapsedTime);
-
 	// 着地しているかどうか
 	bool IsGrounded() const;
 };

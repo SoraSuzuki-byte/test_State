@@ -49,8 +49,8 @@ PlayerState* AirState::Update(Player& player, float elapsedTime)
 		//player.MoveX(velocityX * elapsedTime);
 	}
 
-	// 重力を適応
-	if (player.ApplyGravityAndLand(elapsedTime)) //着地していれば
+	// 着地していれば
+	if (player.IsGrounded())
 	{
 		if (direction != 0)
 		{

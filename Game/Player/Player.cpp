@@ -83,6 +83,13 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 		ChangeState(nextState);
 	}
 
+	// 重力の更新
+	if (!IsGrounded())
+	{
+		// 重力の適応
+		ApplyGravity(elapsedTime);
+	}
+
 	// 位置の更新
 	UpdatePosition(elapsedTime);
 
@@ -256,7 +263,7 @@ void Player::UpdatePosition(float elapsedTime)
 
 
 /// <summary>
-/// 重力の処理
+/// 重力の適応
 /// </summary>
 void Player::ApplyGravity(float elapsedTime)
 {
@@ -265,26 +272,6 @@ void Player::ApplyGravity(float elapsedTime)
 
 
 
-
-/// <summary>
-/// 地面に付いているかを判定
-/// </summary>
-/// <param name="elapsedTime">経過時間</param>
-/// <returns>着地しているかを返す</returns>
-bool Player::ApplyGravityAndLand(float elapsedTime)
-{
-	// 重力の処理
-	ApplyGravity(elapsedTime);
-
-	// 着地
-	if (IsGrounded())
-	{
-		SetY(PlayerConstants::GROUND_Y);
-		SetVelocityY(0.0f);
-		return true;
-	}
-	return false;
-}
 
 /// <summary>
 /// 着地しているかどうか を返す
