@@ -96,7 +96,7 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 	// 着地補正の処理
 	if (IsGrounded() && IsFalling())
 	{
-		SetY(PlayerConstants::GROUND_Y);
+		m_y = PlayerConstants::GROUND_Y;
 		SetVelocityY(0.0f);
 	}
 }

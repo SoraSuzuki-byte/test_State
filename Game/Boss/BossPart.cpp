@@ -65,6 +65,9 @@ static_cast<int>(m_centerPosition.x),
 		L"HP: %d / %d", m_hp, m_maxHp);
 }
 
+
+
+
 /// <summary>
 /// ダメージを受け、HPが減る
 /// </summary>
@@ -83,6 +86,9 @@ void BossPart::TakeDamage(int damage)
 	}
 }
 
+
+
+
 /// <summary>
 /// HPが無いか？
 /// </summary>
@@ -91,6 +97,9 @@ bool BossPart::IsBroken() const
 {
 	return m_hp <= 0; // 真偽を 返している
 }
+
+
+
 
 /// <summary>
 /// 現在のHPを返す
@@ -101,6 +110,9 @@ int BossPart::GetHp() const
 	return m_hp;
 }
 
+
+
+
 // <summary>
 /// 最大HPを返す
 /// </summary>
@@ -108,6 +120,9 @@ int BossPart::GetMaxHp() const
 {
 	return m_maxHp;
 }
+
+
+
 
 /// <summary>
 /// 位置を変える
@@ -117,6 +132,9 @@ void BossPart::SetPosition(const Vector2D& pos)
 {
 	m_centerPosition = pos;
 }
+
+
+
 
 /// <summary>
 /// 部位破壊通知用のオブザーバーとパーツのインデックスを設定する
@@ -129,6 +147,9 @@ void BossPart::SetObserver(IBossPartObserver* observer, int index)
 	m_index = index;
 }
 
+
+
+
 /// <summary>
 	/// パーツが破壊されたことをオブザーバーに通知する
 	/// </summary>
@@ -140,6 +161,9 @@ void BossPart::NotifyBroken()
 		m_observer->OnPartBroken(m_index);
 	}
 }
+
+
+
 
 /// <summary>
 /// パーツを強制的に破壊状態にする
