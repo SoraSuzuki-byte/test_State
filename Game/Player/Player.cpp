@@ -75,13 +75,22 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 			m_attackCooldown = 0.0f;
 		}
 	}
-		
 
 	// 現在の状態に処理を任せ、遷移先があれば切り替える
 	PlayerState* nextState = m_state->Update(*this, elapsedTime);
 	if (nextState)
 	{
 		ChangeState(nextState);
+	}
+
+	// 位置の更新
+	UpdatePosition(elapsedTime);
+
+	// 着地補正の処理
+	if (IsGrounded() && m_velocityY >= 0.0f)
+	{
+		SetY(PlayerConstants::GROUND_Y);
+		SetVelocityY(0.0f);
 	}
 }
 
@@ -232,13 +241,30 @@ void Player::StartAttackCooldown()
 
 
 /// <summary>
+/// 位置の更新
+/// </summary>
+/// <param name="elapsedTime">経過時間</param>
+void Player::UpdatePosition(float elapsedTime)
+{
+	// X座標の更新
+	MoveX(m_velocityX * elapsedTime);
+
+	// Y座標の更新
+	m_y += m_velocityY * elapsedTime;
+}
+
+
+
+/// <summary>
 /// 重力の処理
 /// </summary>
 void Player::ApplyGravity(float elapsedTime)
 {
 	SetVelocityY(GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
-	SetY(GetY() + GetVelocityY() * elapsedTime);
 }
+
+
+
 
 /// <summary>
 /// 地面に付いているかを判定
@@ -258,11 +284,6 @@ bool Player::ApplyGravityAndLand(float elapsedTime)
 		return true;
 	}
 	return false;
-
-	// NOTE:この関数は、複数の処理を担当してしまっており、単一責任ではない
-	//       しかし、分けないことで使いやすくしている（初心者プログラマにとって）
-	// 
-	// できれば、リファクタリングで分けて！！
 }
 
 /// <summary>

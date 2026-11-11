@@ -44,7 +44,9 @@ PlayerState* AirState::Update(Player& player, float elapsedTime)
 	if (direction != 0)
 	{
 		player.SetFacingRight(direction > 0);
-		player.MoveX(velocityX * elapsedTime);
+
+		// ここに、ジャンプ時の移動速度の追加　書くのかも？？
+		//player.MoveX(velocityX * elapsedTime);
 	}
 
 	// 重力を適応

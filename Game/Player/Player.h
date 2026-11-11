@@ -101,6 +101,7 @@ public:
 
 
 	// 位置の取得とセット
+	void UpdatePosition(float elapsedTime);
 	float GetX() const { return m_x; }
 	float GetY() const { return m_y; }
 	void  SetX(float x) { m_x = x; }

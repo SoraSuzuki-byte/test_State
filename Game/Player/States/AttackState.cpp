@@ -47,9 +47,6 @@ PlayerState* AttackState::Update(Player& player, float elapsedTime)
 		player.SetVelocityX(0.0f);
 	}
 
-	// 保存された velocityXで、移動する
-	player.MoveX((player.GetVelocityX()) * (elapsedTime));
-
 	// 持続時間が終わったら待機へ
 	m_timer -= elapsedTime;
 	if (m_timer <= 0.0f)

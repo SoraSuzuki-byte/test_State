@@ -47,7 +47,7 @@ PlayerState* RunState::Update(Player& player, float elapsedTime)
 
 	// 移動
 	player.SetFacingRight(direction > 0);
-	player.MoveX(direction * PlayerConstants::MOVE_SPEED * elapsedTime);
+	player.SetVelocityX(direction * PlayerConstants::MOVE_SPEED);
 
 	// 攻撃（Xキー && 攻撃のクールダウンタイムが終わっていれば）
 	if (player.IsPressed(PAD_INPUT_2)
