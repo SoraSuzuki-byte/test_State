@@ -42,8 +42,3 @@ public:
 	// 状態名を取得（デバッグ表示用）
 	virtual const wchar_t* GetName() const = 0;
 };
-
-
-
-
-

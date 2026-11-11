@@ -99,9 +99,6 @@
     <ClCompile Include="Game\Manager\InputManager.cpp">
       <Filter>Game\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Boss\BossPartState.cpp">
-      <Filter>Game\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Boss\Tentacle.cpp">
       <Filter>Game\Boss</Filter>
     </ClCompile>

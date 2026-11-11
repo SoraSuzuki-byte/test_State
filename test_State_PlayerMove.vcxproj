@@ -141,7 +141,6 @@
   <ItemGroup>
     <!-- プリコンパイル済みヘッダー -->
     <ClCompile Include="Game\Boss\BossPart.cpp" />
-    <ClCompile Include="Game\Boss\BossPartState.cpp" />
     <ClCompile Include="Game\Boss\States\PartBrokenState.cpp" />
     <ClCompile Include="Game\Boss\States\PartDamagedState.cpp" />
     <ClCompile Include="Game\Boss\States\PartNormalState.cpp" />
