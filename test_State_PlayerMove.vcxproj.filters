@@ -39,6 +39,9 @@
     <Filter Include="Game\Player\States">
       <UniqueIdentifier>{61da1190-1a4c-4299-bd85-8a70572d3bc9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Boss\States">
+      <UniqueIdentifier>{ebc695a3-c996-4c7d-9428-4ef6e707d042}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <!-- ファイル -->
   <ItemGroup>
@@ -123,6 +126,15 @@
     <ClCompile Include="Game\Player\AirState.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Boss\States\PartNormalState.cpp">
+      <Filter>Game\Boss\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Boss\States\PartDamagedState.cpp">
+      <Filter>Game\Boss\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Boss\States\PartBrokenState.cpp">
+      <Filter>Game\Boss\States</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -178,6 +190,15 @@
     </ClInclude>
     <ClInclude Include="Game\Player\AirState.h">
       <Filter>Game\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\States\PartNormalState.h">
+      <Filter>Game\Boss\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\States\PartDamagedState.h">
+      <Filter>Game\Boss\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\States\PartBrokenState.h">
+      <Filter>Game\Boss\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

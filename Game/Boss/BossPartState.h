@@ -44,40 +44,6 @@ public:
 };
 
 
-/**
- * @brief HPが半分より多い（緑）
- */
-class PartNormalState : public BossPartState
-{
-public:
-	std::unique_ptr<BossPartState> OnDamaged(BossPart& bossPart) override;
-	unsigned int GetBodyColor() const override;
-	const wchar_t* GetName() const override { return L"Normal"; }
-};
 
 
-/**
- * @brief HPが半分以下（黄）
- */
-class PartDamagedState : public BossPartState
-{
-public:
-	std::unique_ptr<BossPartState> OnDamaged(BossPart& bossPart) override;
-	unsigned int GetBodyColor() const override;
-	const wchar_t* GetName() const override { return L"Damaged"; }
 
-};
-
-
-/**
- * @brief HPが0（灰色）
- */
-class PartBrokenState : public BossPartState
-{
-public:
-	std::unique_ptr<BossPartState> OnDamaged(BossPart& bossPart) override;
-	unsigned int GetBodyColor() const override;
-	const wchar_t* GetName() const override { return L"Broken"; }
-
-	void Enter(BossPart& bossPart) override;// この状態に遷移したときの初期化処理を行なう
-};

@@ -9,6 +9,8 @@
  */
 #include "pch.h"
 #include "BossPart.h"
+#include "Game/Boss/States/PartNormalState.h"
+#include "Game/Boss/States/PartBrokenState.h"
 
 
  /// <summary>
