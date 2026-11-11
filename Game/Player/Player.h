@@ -122,4 +122,7 @@ public:
 
 	// 着地しているかどうか
 	bool IsGrounded() const;
+
+	// 下向きに移動しているか（落下中か）
+	bool IsFalling() const { return m_velocityY >= 0.0f; }
 };

@@ -94,7 +94,7 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 	UpdatePosition(elapsedTime);
 
 	// 着地補正の処理
-	if (IsGrounded() && m_velocityY >= 0.0f)
+	if (IsGrounded() && IsFalling())
 	{
 		SetY(PlayerConstants::GROUND_Y);
 		SetVelocityY(0.0f);

@@ -49,8 +49,8 @@ PlayerState* AirState::Update(Player& player, float elapsedTime)
 		//player.MoveX(velocityX * elapsedTime);
 	}
 
-	// 着地していれば
-	if (player.IsGrounded())
+	// 着地し、下向きに移動していれば
+	if (player.IsGrounded() && player.IsFalling())
 	{
 		if (direction != 0)
 		{
