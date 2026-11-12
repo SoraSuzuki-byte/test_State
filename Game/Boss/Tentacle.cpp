@@ -87,6 +87,31 @@ void Tentacle::Render() const
 	}
 }
 
+
+
+/// <summary>
+/// 円と重なっている節にダメージを与える（当たった節の数字を返す）
+/// </summary>
+/// <param name="center">円の中心</param>
+/// <param name="radius">円の半径</param>
+/// <param name="damage">ダメージ量</param>
+/// <returns></returns>
+int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damage)
+{
+	int hitCount = 0;
+
+	for (int i = 0; i < SEGMENT_COUNT; i++)
+		{
+			if (m_parts[i].IsHit(center, radius))
+			{
+				m_parts[i].TakeDamage(damage);
+				hitCount++;
+			}
+		}
+
+	return hitCount;
+}
+
 /// <summary>
 /// index番目の節にダメージを与える
 /// </summary>

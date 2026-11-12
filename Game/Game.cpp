@@ -10,11 +10,20 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "Game.h"
-
 #include "Game/Screen.h"
 #include "Game/Player/PlayerConstants.h"
-
 #include "Game/Player/Player.h"
+
+
+namespace
+{
+	// 動作確認用の攻撃の円
+
+	// NOTE:（触手に重なる位置に調整する）
+
+	const Vector2D TEST_ATTACK_POS{ 450.0f,250.0f };
+	constexpr float TEST_ATTACK_RADIUS = 30.0f;
+}
 
 
 
@@ -84,10 +93,18 @@ void Game::Update(float elapsedTime)
 
 
 	// スペースキーで、5番目の節に50ダメージ
+	//if (keyTrigger & PAD_INPUT_10)
+	//{
+	//	m_tentacle.TakeDamage(5, 50);
+	//}
+
+	// 攻撃位置と重なったときスペースキーで、ダメージを与える
 	if (keyTrigger & PAD_INPUT_10)
 	{
-		m_tentacle.TakeDamage(5, 50);
+		m_tentacle.TakeDamageByCircle(TEST_ATTACK_POS, TEST_ATTACK_RADIUS, 50);
 	}
+
+
 
 	// ゲームの更新
 	m_player->Update(elapsedTime, keyCondition, keyTrigger);
@@ -114,6 +131,13 @@ void Game::Render()
 	m_player->Render();
 
 	m_tentacle.Render();
+
+	// 動作確認用の攻撃の円（輪郭だけ）
+	DrawCircle(static_cast<int>(TEST_ATTACK_POS.x),
+		static_cast<int>(TEST_ATTACK_POS.y),
+		static_cast<int>(TEST_ATTACK_RADIUS),
+		GetColor(255, 255, 255),
+		FALSE);
 
 	// 操作説明
 	DrawString(10, 30, L"←→:移動  Z:ジャンプ  X:攻撃", GetColor(200, 200, 200));

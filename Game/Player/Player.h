@@ -13,6 +13,8 @@
 
 
 // ヘッダファイルの読み込み ===================================================
+#include "Library/GameMath.h"
+
 #include "PlayerState.h"
 #include "Game/Player/States/IdleState.h"
 #include "Game/Player/States/RunState.h"
@@ -30,7 +32,7 @@ class Player
 // データメンバの宣言 -----------------------------------------------
 private:
 	// 位置・速度
-	float m_x{};            ///< X座標（左端）
+	float m_x{};            ///< X座標（中心）
 	float m_y{};            ///< Y座標（足元）
 	float m_velocityX{};    ///< X方向の速度
 	float m_velocityY{};    ///< Y方向の速度
@@ -91,6 +93,12 @@ public:
 
 	// クールダウンタイムのセット
 	void StartAttackCooldown();
+
+	// 体の中心の取得（当たり判定に使う）
+	Vector2D GetBodyCenter() const;
+
+	// 体の半径を取得（当たり判定に使う）
+	float    GetBodyRadius() const;
 
 	// Stateの取得
 	PlayerState* GetIdleState()   { return &m_idle; }

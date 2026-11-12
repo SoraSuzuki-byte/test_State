@@ -12,9 +12,12 @@
 namespace PlayerConstants
 {
 	// 見た目
-	constexpr float GROUND_Y = 400.0f;   ///< 地面のY座標（足元の位置）
-	constexpr float WIDTH    = 40.0f;    ///< 幅
-	constexpr float HEIGHT   = 60.0f;    ///< 高さ
+	constexpr float GROUND_Y = 400.0f;            ///< 地面のY座標（足元の位置）
+	constexpr float WIDTH    = 40.0f;             ///< 幅
+	constexpr float HALF_WIDTH = WIDTH * 0.5f;    ///< 幅の半分（中心から端まで）
+	constexpr float HEIGHT   = 60.0f;             ///< 高さ
+
+	static constexpr float BODY_RADIUS = 25.0f; ///< 体の円の半径
 
 	// 動き
 	constexpr float MOVE_SPEED  = 240.0f;  ///< 移動速度（px/秒）

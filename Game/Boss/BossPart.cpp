@@ -71,6 +71,26 @@ static_cast<int>(m_centerPosition.x),
 
 
 /// <summary>
+/// 当たったかどうかの判定
+/// </summary>
+/// <param name="center">中心</param>
+/// <param name="radius">半径</param>
+/// <returns>当たったか</returns>
+bool BossPart::IsHit(const Vector2D& center, float radius) const
+{
+	if (IsBroken()) return false; // 壊れた節には当たらない
+
+	const float dx = m_centerPosition.x - center.x;
+	const float dy = m_centerPosition.y - center.y;
+	const float r = m_radius + radius;
+
+	return (dx * dx + dy * dy) <= (r * r);
+}
+
+
+
+
+/// <summary>
 /// ダメージを受け、HPが減る
 /// </summary>
 void BossPart::TakeDamage(int damage)

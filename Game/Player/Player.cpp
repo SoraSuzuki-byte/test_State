@@ -27,6 +27,7 @@ Player::Player()
 
 
 
+
 /// <summary>
 /// デストラクタ
 /// </summary>
@@ -38,17 +39,19 @@ Player::~Player()
 
 
 
+
 /// <summary>
 /// 初期化
 /// </summary>
 void Player::Initialize()
 {
-	m_x = 100.0f;
+	m_x = 100.0f + PlayerConstants::HALF_WIDTH;
 	m_y = PlayerConstants::GROUND_Y;
 
 	// 最初は IdleState
 	ChangeState(&m_idle);
 }
+
 
 
 
@@ -104,14 +107,15 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 
 
 
+
 /// <summary>
 /// 描画
 /// </summary>
 void Player::Render() const
 {
-	const int left   = static_cast<int>(m_x);
+	const int left = static_cast<int>(m_x - PlayerConstants::HALF_WIDTH);
 	const int top    = static_cast<int>(m_y - PlayerConstants::HEIGHT);
-	const int right  = static_cast<int>(m_x + PlayerConstants::WIDTH);
+	const int right = static_cast<int>(m_x + PlayerConstants::HALF_WIDTH);
 	const int bottom = static_cast<int>(m_y);
 
 	// 本体（状態ごとの色）
@@ -128,12 +132,24 @@ void Player::Render() const
 	// 状態固有の描画（攻撃の判定など）
 	m_state->RenderEffect(*this);
 
+
+#ifdef _DEBUG
+	// 当たり判定の円（確認用。輪郭だけ）
+	const Vector2D bodyCenter = GetBodyCenter();
+	DrawCircle(static_cast<int>(bodyCenter.x),
+		static_cast<int>(bodyCenter.y),
+		static_cast<int>(GetBodyRadius()),
+		GetColor(255, 255, 255),
+		FALSE);
+#endif
+
 	// デバッグ表示
 	DrawString(10, 10, L"State:", GetColor(255, 255, 255));
 	DrawString(70, 10, m_state->GetName(), GetColor(255, 255, 255));
 	DrawFormatString(10, 50, GetColor(255, 255, 255), L"VelX: %.1f", m_velocityX);
 	DrawFormatString(10, 100, GetColor(255, 255, 255), L"VelY: %.1f", m_velocityY);
 }
+
 
 
 
@@ -157,6 +173,7 @@ void Player::ChangeState(PlayerState* nextState)
 
 
 
+
 /// <summary>
 /// X方向に移動（画面外に出ないよう制限する）
 /// </summary>
@@ -169,15 +186,16 @@ void Player::MoveX(float dx)
 
 	m_x += dx;
 
-	if (m_x < 0.0f)
+	if (m_x < PlayerConstants::HALF_WIDTH)
 	{
-		m_x = 0.0f;
+		m_x = PlayerConstants::HALF_WIDTH;
 	}
-	if (m_x > static_cast<float>(screenW) - PlayerConstants::WIDTH)
+	if (m_x > static_cast<float>(screenW) - PlayerConstants::HALF_WIDTH)
 	{
-		m_x = static_cast<float>(screenW) - PlayerConstants::WIDTH;
+		m_x = static_cast<float>(screenW) - PlayerConstants::HALF_WIDTH;
 	}
 }
+
 
 
 
@@ -195,6 +213,7 @@ bool Player::IsHeld(int button) const
 
 
 
+
 /// <summary>
 /// ボタンが押された"瞬間"か
 /// </summary>
@@ -204,6 +223,7 @@ bool Player::IsPressed(int button) const
 {
 	return (m_keyTrigger & button) != 0;
 }
+
 
 
 
@@ -225,6 +245,7 @@ int Player::GetMoveDirection() const
 
 
 
+
 /// <summary>
 /// 攻撃できるかを返す
 /// </summary>
@@ -237,6 +258,7 @@ bool Player::CanAttack() const
 
 
 
+
 /// <summary>
 /// クールダウンタイムのセット
 /// </summary>
@@ -244,6 +266,34 @@ void Player::StartAttackCooldown()
 {
 	m_attackCooldown = PlayerConstants::ATTACK_COOLDOWN;
 }
+
+
+
+
+
+/// <summary>
+/// 体の中心の取得
+/// </summary>
+/// <returns>体の中心</returns>
+Vector2D Player::GetBodyCenter() const
+{
+	// 円の底が足元に付くように、足元から半径ぶん上に置く
+	return Vector2D{ m_x, m_y - PlayerConstants::BODY_RADIUS };
+}
+
+
+
+
+/// <summary>
+/// 体の半径を取得
+/// </summary>
+/// <returns>体の半径</returns>
+float Player::GetBodyRadius() const
+{
+	return PlayerConstants::BODY_RADIUS;
+}
+
+
 
 
 
@@ -262,6 +312,8 @@ void Player::UpdatePosition(float elapsedTime)
 
 
 
+
+
 /// <summary>
 /// 重力の適応
 /// </summary>
@@ -269,6 +321,7 @@ void Player::ApplyGravity(float elapsedTime)
 {
 	SetVelocityY(GetVelocityY() + PlayerConstants::GRAVITY * elapsedTime);
 }
+
 
 
 

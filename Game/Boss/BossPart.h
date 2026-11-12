@@ -43,6 +43,9 @@ public:
 	void Initialize();
 	void Render()const;
 
+	// 当たったかどうかの判定
+	bool IsHit(const Vector2D& center, float radius) const;
+
 	// ダメージを受け、HPが減る
 	void TakeDamage(int damage);
 

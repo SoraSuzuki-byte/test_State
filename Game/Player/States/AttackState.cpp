@@ -73,10 +73,10 @@ void AttackState::RenderEffect(const Player& player) const
 
 	const int top = static_cast<int>(player.GetY() - PlayerConstants::HEIGHT) + 15;
 
-	int left = static_cast<int>(player.GetX()) - attackW;   // 左向きのときの位置
+	int left = static_cast<int>(player.GetX() - PlayerConstants::HALF_WIDTH) - attackW; // 左向き
 	if (player.IsFacingRight())
 	{
-		left = static_cast<int>(player.GetX() + PlayerConstants::WIDTH);   // 右向きのときの位置
+		left = static_cast<int>(player.GetX() + PlayerConstants::HALF_WIDTH);           // 右向き
 	}
 
 	DrawBox(left, top, left + attackW, top + attackH, GetColor(255, 180, 180), TRUE);

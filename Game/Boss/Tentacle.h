@@ -73,6 +73,9 @@ public:
 	void Update(float elapsedTime);
 	void Render() const;
 
+	// 円と重なっている節にダメージを与える（当たった節の数字を返す）
+	int TakeDamageByCircle(const Vector2D& center, float radius, int damage);
+
 	// index 番目の節にダメージを与える
 	void TakeDamage(int index, int damage);
 
