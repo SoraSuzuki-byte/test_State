@@ -15,19 +15,6 @@
 #include "Game/Player/Player.h"
 
 
-namespace
-{
-	// 動作確認用の攻撃の円
-
-	// NOTE:（触手に重なる位置に調整する）
-
-	const Vector2D TEST_ATTACK_POS{ 450.0f,250.0f };
-	constexpr float TEST_ATTACK_RADIUS = 30.0f;
-}
-
-
-
-
 // メンバ関数の定義 ===========================================================
 /**
  * @brief デフォルトコンストラクタ
@@ -92,12 +79,6 @@ void Game::Update(float elapsedTime)
 	const int keyTrigger = m_gameContext.inputManager.GetKeyTrigger();
 
 
-	// スペースキーで、5番目の節に50ダメージ
-	//if (keyTrigger & PAD_INPUT_10)
-	//{
-	//	m_tentacle.TakeDamage(5, 50);
-	//}
-
 	// Playerの攻撃が触手に当たるか
 	if (m_player->CanDealAttackDamage()) // 攻撃判定を出せるなら
 	{
@@ -105,21 +86,11 @@ void Game::Update(float elapsedTime)
 		const int hitCount = m_tentacle.TakeDamageByCircle(
 			m_player->GetAttackCenter(),
 			m_player->GetAttackRadius(),
-			PlayerConstants::ATTACK_DAMAGE);
-
-		if (hitCount > 0)
-		{
-			// この攻撃では、もう当たらない
-			m_player->OnAttackHit();
-		}
+			PlayerConstants::ATTACK_DAMAGE,
+			m_player->GetAttackId());
 	}
 
 
-	// 攻撃位置と重なったときスペースキーで、ダメージを与える
-	if (keyTrigger & PAD_INPUT_10)
-	{
-		m_tentacle.TakeDamageByCircle(TEST_ATTACK_POS, TEST_ATTACK_RADIUS, 50);
-	}
 
 
 
@@ -149,15 +120,11 @@ void Game::Render()
 
 	m_tentacle.Render();
 
-	// 動作確認用の攻撃の円（輪郭だけ）
-	DrawCircle(static_cast<int>(TEST_ATTACK_POS.x),
-		static_cast<int>(TEST_ATTACK_POS.y),
-		static_cast<int>(TEST_ATTACK_RADIUS),
-		GetColor(255, 255, 255),
-		FALSE);
-
 	// 操作説明
 	DrawString(10, 30, L"←→:移動  Z:ジャンプ  X:攻撃", GetColor(200, 200, 200));
+
+	DrawFormatString(10, 60, GetColor(255, 255, 255),
+		L"攻撃中:%d  ID:%d", m_player->IsAttacking(), m_player->GetAttackId());
 
 }
 

@@ -96,7 +96,7 @@ void Tentacle::Render() const
 /// <param name="radius">円の半径</param>
 /// <param name="damage">ダメージ量</param>
 /// <returns></returns>
-int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damage)
+int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damage, int attackId)
 {
 	int hitCount = 0;
 
@@ -104,8 +104,11 @@ int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damag
 		{
 			if (m_parts[i].IsHit(center, radius))
 			{
-				m_parts[i].TakeDamage(damage);
-				hitCount++;
+				// 同じ攻撃ですでに当たった節ならfalse
+				if (m_parts[i].TakeDamageFromAttack(damage, attackId))
+				{
+					hitCount++;
+				}
 			}
 		}
 

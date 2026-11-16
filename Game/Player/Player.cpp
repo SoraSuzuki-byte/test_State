@@ -280,7 +280,7 @@ bool Player::CanDealAttackDamage() const
 
 
 	// 攻撃中 かつ、この攻撃がまだ当たっていない
-	return IsAttacking() && !m_attackHit;
+	return IsAttacking();
 }
 
 
@@ -353,6 +353,31 @@ void Player::StartAttackCooldown()
 
 
 /// <summary>
+/// 攻撃を開始し、新しい攻撃IDを発行する
+/// </summary>
+void Player::BeginAttack()
+{
+	m_attackedId++;
+}
+
+
+
+
+
+/// <summary>
+/// 今の攻撃の番号
+/// </summary>
+/// <returns>今の攻撃の番号</returns>
+int Player::GetAttackId() const
+{
+	return m_attackedId;
+}
+
+
+
+
+
+/// <summary>
 /// 体の中心の取得
 /// </summary>
 /// <returns>体の中心</returns>
@@ -361,6 +386,7 @@ Vector2D Player::GetBodyCenter() const
 	// 円の底が足元に付くように、足元から半径ぶん上に置く
 	return Vector2D{ m_x, m_y - PlayerConstants::BODY_RADIUS };
 }
+
 
 
 

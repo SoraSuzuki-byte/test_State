@@ -35,8 +35,9 @@ private:
 	// 今のステート
 	std::unique_ptr<BossPartState> m_state{};
 
-	// ステートを変える
-	void ChangeState(std::unique_ptr<BossPartState> nextState);
+	// 最後にダメージを受けた攻撃の番号（0 は「まだなし」）
+	int m_lastAttackId{};
+
 public:
 	BossPart(const Vector2D& pos, float radius, int maxHp);
 	//~BossPart();
@@ -67,11 +68,23 @@ public:
 	// パーツが破壊されたことをオブザーバーに通知する
 	void NotifyBroken();
 
-
-
-
-
 	// パーツを強制的に破壊状態にする
 	void ForceBreak();
+
+	/// <summary>
+	/// 攻撃IDを確認し、未ヒットの攻撃であればダメージを受ける
+	/// </summary>
+	/// <param name="damage">受けるダメージ量</param>
+	/// <param name="attackId">攻撃の識別番号（多段ヒット防止用）</param>
+	/// <returns>ダメージを受けた場合はtrue、すでにヒット済みの場合はfalse</returns>
+	bool TakeDamageFromAttack(int damage, int attackId);
+
+// 内部処理
+private:
+	/// <summary>
+	/// ステートを変更
+	/// </summary>
+	void ChangeState(std::unique_ptr<BossPartState> nextState);
+
 };
 

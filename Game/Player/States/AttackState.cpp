@@ -26,8 +26,8 @@ void AttackState::Enter(Player& player)
 	UNREFERENCED_PARAMETER(player);
 	m_timer = PlayerConstants::ATTACK_TIME;
 
-	// 攻撃が当たった 記録を消す
-	player.ResetAttackHit();
+	// 今回の攻撃用の新しい識別番号（ID）を発行する
+	player.BeginAttack();
 }
 
 

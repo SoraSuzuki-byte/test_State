@@ -44,6 +44,9 @@ private:
 	// この攻撃が 既に当たったか
 	bool m_attackHit{};
 
+	// 攻撃ID（攻撃が新しく節に当たるたびに 1ずつ増える識別番号）
+	int m_attackedId;
+
 	// キー入力
 	int m_keyCondition{};   ///< 現在のキー情報（押している間）
 	int m_keyTrigger  {};   ///< 押された瞬間のキー情報
@@ -118,6 +121,17 @@ public:
 	// 攻撃のクールダウンタイムのセット
 	void StartAttackCooldown();
 
+	/// <summary>
+	/// 攻撃を開始し、新しい攻撃IDを発行する
+	/// </summary>
+	void BeginAttack();
+
+	/// <summary>
+	/// 今の攻撃の番号
+	/// </summary>
+	/// <returns>今の攻撃の番号</returns>
+	int GetAttackId() const;
+
 
 	// 体の中心の取得（当たり判定に使う）
 	Vector2D GetBodyCenter() const;
@@ -150,13 +164,16 @@ public:
 	bool IsFacingRight() const { return m_facingRight; }
 	void SetFacingRight(bool facingRight) { m_facingRight = facingRight; }
 
-// 内部処理
-	// 重力の処理
-	void ApplyGravity(float elapsedTime);
-
 	// 着地しているかどうか
 	bool IsGrounded() const;
 
 	// 下向きに移動しているか（落下中か）
 	bool IsFalling() const { return m_velocityY >= 0.0f; }
+
+// 内部処理
+private:
+	// 重力の処理
+	void ApplyGravity(float elapsedTime);
+
+
 };

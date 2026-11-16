@@ -13,19 +13,6 @@
 #include "Game/Boss/States/PartBrokenState.h"
 
 
- /// <summary>
- /// ステートを変更
- /// </summary>
-void BossPart::ChangeState(std::unique_ptr<BossPartState> nextState)
-{
-	if (m_state)
-	{
-		m_state->Exit(*this);   // 古い状態の終了処理
-	}
-
-	m_state = std::move(nextState);   // 古い状態が delete され、入れ替わる
-	m_state->Enter(*this);            // 新しい状態の開始処理
-}
 
 /// <summary>
 /// コンストラクタ
@@ -196,4 +183,42 @@ void BossPart::ForceBreak()
 
 	m_hp = 0;
 	ChangeState(std::make_unique<PartBrokenState>());
+}
+
+
+
+
+
+/// <summary>
+/// 攻撃IDを確認し、未ヒットの攻撃であればダメージを受ける
+/// </summary>
+/// <param name="damage">受けるダメージ量</param>
+/// <param name="attackId">攻撃の識別番号（多段ヒット防止用）</param>
+/// <returns>ダメージを受けた場合はtrue、すでにヒット済みの場合はfalse</returns>
+bool BossPart::TakeDamageFromAttack(int damage, int attackId)
+{
+	// この攻撃では、すでにダメージを受けている
+	if (attackId == m_lastAttackId) return false;
+
+	m_lastAttackId = attackId;
+	TakeDamage(damage);
+	return true;
+}
+
+
+
+
+
+/// <summary>
+/// ステートを変更
+/// </summary>
+void BossPart::ChangeState(std::unique_ptr<BossPartState> nextState)
+{
+	if (m_state)
+	{
+		m_state->Exit(*this);   // 古い状態の終了処理
+	}
+
+	m_state = std::move(nextState);   // 古い状態が delete され、入れ替わる
+	m_state->Enter(*this);            // 新しい状態の開始処理
 }
