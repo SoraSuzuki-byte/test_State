@@ -25,6 +25,9 @@ void AttackState::Enter(Player& player)
 {
 	UNREFERENCED_PARAMETER(player);
 	m_timer = PlayerConstants::ATTACK_TIME;
+
+	// 攻撃が当たった 記録を消す
+	player.ResetAttackHit();
 }
 
 
@@ -67,19 +70,13 @@ PlayerState* AttackState::Update(Player& player, float elapsedTime)
 /// <param name="player">Playerの参照</param>
 void AttackState::RenderEffect(const Player& player) const
 {
-	// 攻撃判定の見た目（向いている方向に箱を出す）
-	const int attackW = 30;
-	const int attackH = 20;
+	const Vector2D center = player.GetAttackCenter();
 
-	const int top = static_cast<int>(player.GetY() - PlayerConstants::HEIGHT) + 15;
-
-	int left = static_cast<int>(player.GetX() - PlayerConstants::HALF_WIDTH) - attackW; // 左向き
-	if (player.IsFacingRight())
-	{
-		left = static_cast<int>(player.GetX() + PlayerConstants::HALF_WIDTH);           // 右向き
-	}
-
-	DrawBox(left, top, left + attackW, top + attackH, GetColor(255, 180, 180), TRUE);
+	DrawCircle(static_cast<int>(center.x),
+		static_cast<int>(center.y),
+		static_cast<int>(player.GetAttackRadius()),
+		GetColor(255, 180, 180),
+		TRUE);
 }
 
 

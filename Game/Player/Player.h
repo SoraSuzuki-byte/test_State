@@ -41,6 +41,9 @@ private:
 	// 攻撃用クールダウン
 	float m_attackCooldown{};
 
+	// この攻撃が 既に当たったか
+	bool m_attackHit{};
+
 	// キー入力
 	int m_keyCondition{};   ///< 現在のキー情報（押している間）
 	int m_keyTrigger  {};   ///< 押された瞬間のキー情報
@@ -91,8 +94,30 @@ public:
 	// 攻撃できるかを返す
 	bool CanAttack() const;
 
-	// クールダウンタイムのセット
+	// 攻撃中か
+	bool IsAttacking() const;
+
+	// 今、攻撃の判定を出してよいか
+	bool CanDealAttackDamage() const;
+
+	// 攻撃の円の中心
+	Vector2D GetAttackCenter() const;
+
+	/// <summary>
+	/// 攻撃の円の半径を取得
+	/// </summary>
+	/// <returns>攻撃の円の半径</returns>
+	float GetAttackRadius() const;
+
+	// 当たったことを記録する
+	void OnAttackHit();
+
+	// 当たった記録を消す（攻撃開始時に呼ぶ）
+	void ResetAttackHit();
+
+	// 攻撃のクールダウンタイムのセット
 	void StartAttackCooldown();
+
 
 	// 体の中心の取得（当たり判定に使う）
 	Vector2D GetBodyCenter() const;
@@ -113,16 +138,19 @@ public:
 	float GetX() const { return m_x; }
 	float GetY() const { return m_y; }
 
+
 	// 速度の取得とセット
 	float GetVelocityX() const { return m_velocityX; }
 	float GetVelocityY() const { return m_velocityY; }
 	void  SetVelocityX(float velocityX) { m_velocityX = velocityX; }
 	void  SetVelocityY(float velocityY) { m_velocityY = velocityY; }
 
+
 	// 向いている向きの取得とセット
 	bool IsFacingRight() const { return m_facingRight; }
 	void SetFacingRight(bool facingRight) { m_facingRight = facingRight; }
 
+// 内部処理
 	// 重力の処理
 	void ApplyGravity(float elapsedTime);
 

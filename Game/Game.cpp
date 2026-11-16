@@ -98,6 +98,23 @@ void Game::Update(float elapsedTime)
 	//	m_tentacle.TakeDamage(5, 50);
 	//}
 
+	// Playerの攻撃が触手に当たるか
+	if (m_player->CanDealAttackDamage()) // 攻撃判定を出せるなら
+	{
+		// 当たった節へダメージを与え、当たった節の個数を取得する
+		const int hitCount = m_tentacle.TakeDamageByCircle(
+			m_player->GetAttackCenter(),
+			m_player->GetAttackRadius(),
+			PlayerConstants::ATTACK_DAMAGE);
+
+		if (hitCount > 0)
+		{
+			// この攻撃では、もう当たらない
+			m_player->OnAttackHit();
+		}
+	}
+
+
 	// 攻撃位置と重なったときスペースキーで、ダメージを与える
 	if (keyTrigger & PAD_INPUT_10)
 	{

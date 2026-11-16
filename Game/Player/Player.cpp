@@ -258,9 +258,90 @@ bool Player::CanAttack() const
 
 
 
+/// <summary>
+/// 攻撃中か
+/// </summary>
+/// <returns>攻撃中か</returns>
+bool Player::IsAttacking() const
+{
+	return m_state == &m_attack;
+}
+
+
+
 
 /// <summary>
-/// クールダウンタイムのセット
+/// いま、攻撃の判定を出していいか
+/// </summary>
+/// <returns>攻撃判定を処理していいかどうか</returns>
+bool Player::CanDealAttackDamage() const
+{
+	// 画像に置き換える時、「最後のコマの間だけ true」にかえて＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+
+
+	// 攻撃中 かつ、この攻撃がまだ当たっていない
+	return IsAttacking() && !m_attackHit;
+}
+
+
+
+
+/// <summary>
+/// 攻撃の中心点を取得
+/// </summary>
+/// <returns>攻撃の中心点</returns>
+Vector2D Player::GetAttackCenter() const
+{
+	// 向いている方向へ、体の中心から ずらす
+	float direction = -1.0f;
+	if (m_facingRight) {
+		direction = 1.0f;
+	}
+
+	Vector2D center = GetBodyCenter();
+	center.x += direction * PlayerConstants::ATTACK_REACH;
+
+	return center;
+}
+
+
+
+
+/// <summary>
+/// 攻撃の円の半径を取得
+/// </summary>
+/// <returns>攻撃の円の半径</returns>
+float Player::GetAttackRadius() const
+{
+	return PlayerConstants::ATTACK_RADIUS;
+}
+
+
+
+/// <summary>
+/// 当たったことを記録する
+/// </summary>
+void Player::OnAttackHit()
+{
+	m_attackHit = true;
+}
+
+
+
+/// <summary>
+/// 当たった記録を消す（攻撃開始時に呼ぶ）
+/// </summary>
+void Player::ResetAttackHit()
+{
+	m_attackHit = false;
+}
+
+
+
+
+
+/// <summary>
+/// 攻撃のクールダウンタイムのセット
 /// </summary>
 void Player::StartAttackCooldown()
 {
