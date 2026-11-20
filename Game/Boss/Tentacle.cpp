@@ -29,9 +29,9 @@ Tentacle::Tentacle(const Vector2D& root)
 		const float radius = BASE_RADIUS * (1.0f - 0.5f * static_cast<float>(i) / SEGMENT_COUNT);
 
 		// その場で節を作る（BossPartはコピーできないため、emplace_back）
-		m_parts.emplace_back(pos, radius, PART_MAX_HP);
-		m_parts.back().SetObserver(this, i); // 「壊れた」の通知先は、この触手。と登録
-		m_parts.back().Initialize(); // HPは入っているので、状態（Normal）に入れる
+		m_parts.emplace_back(std::make_unique<BossPart>(pos, radius, PART_MAX_HP));
+		m_parts.back()->SetObserver(this, i); // 「壊れた」の通知先は、この触手。と登録
+		m_parts.back()->Initialize(); // HPは入っているので、状態（Normal）に入れる
 	}
 }
 
@@ -61,7 +61,7 @@ void Tentacle::Update(float elapsedTime)
 	for (int i = 0; i < SEGMENT_COUNT; i++)
 	{
 		// いまの位置を、この節に入れる
-		m_parts[i].SetPosition(currentPos);// 最初にこの行を実行することで、0番目の節（i = 0）の座標が確実に付け根の位置（m_root）に固定されます。
+		m_parts[i]->SetPosition(currentPos);// 最初にこの行を実行することで、0番目の節（i = 0）の座標が確実に付け根の位置（m_root）に固定されます。
 
 		// 角度を曲げる(節ごとに波をずらすので、波が付け根から先端へ伝わる)
 		currentAngle += BEND + AMPLITUDE * std::sin(m_time * SPEED - i * PHASE);
@@ -83,7 +83,7 @@ void Tentacle::Render() const
 // 先端から描くと、根元の円が手前に重なる
 	for (int i = SEGMENT_COUNT - 1; i >= 0; i--)
 	{
-		m_parts[i].Render();
+		m_parts[i]->Render();
 	}
 }
 
@@ -102,10 +102,10 @@ int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damag
 
 	for (int i = 0; i < SEGMENT_COUNT; i++)
 		{
-			if (m_parts[i].IsHit(center, radius))
+			if (m_parts[i]->IsHit(center, radius))
 			{
 				// 同じ攻撃ですでに当たった節ならfalse
-				if (m_parts[i].TakeDamageFromAttack(damage, attackId))
+				if (m_parts[i]->TakeDamageFromAttack(damage, attackId))
 				{
 					hitCount++;
 				}
@@ -125,7 +125,7 @@ void Tentacle::TakeDamage(int index, int damage)
 	// 範囲外の番号は無視する
 	if (index < 0 || index >= SEGMENT_COUNT) return;
 
-	m_parts[index].TakeDamage(damage);
+	m_parts[index]->TakeDamage(damage);
 }
 
 /// <summary>
@@ -163,7 +163,7 @@ void Tentacle::UpdateCollapse(float elapsedTime)
 
 	// 1節 壊して、次の節へ進む
 	// （壊れた節の通知で OnPartBroken が呼ばれるが、先端側であるため、m_collapseIndex は変わらない）
-	m_parts[m_collapseIndex].ForceBreak();
+	m_parts[m_collapseIndex]->ForceBreak();
 	m_collapseIndex++;
 	m_collapseTimer = COLLAPSE_INTERVAL;
 

@@ -46,7 +46,7 @@ private:
 	Vector2D m_root;
 
 	// 節（位置・半径・HP・状態を持つ）
-	std::vector<BossPart> m_parts;
+	std::vector<std::unique_ptr<BossPart>> m_parts;
 	
 	// 経過時間
 	float m_time{};

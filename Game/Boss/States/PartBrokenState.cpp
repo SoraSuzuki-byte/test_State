@@ -14,7 +14,7 @@
  // ===========================================================================
  // PartBrokenState（HPが0）
  // ===========================================================================
-std::unique_ptr<BossPartState> PartBrokenState::OnDamaged(BossPart& bossPart)
+BossPartState* PartBrokenState::OnDamaged(BossPart& bossPart)
 {
 	UNREFERENCED_PARAMETER(bossPart); // 使わない引数であるとコンパイラに伝える
 

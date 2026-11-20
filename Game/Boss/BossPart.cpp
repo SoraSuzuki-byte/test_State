@@ -9,9 +9,6 @@
  */
 #include "pch.h"
 #include "BossPart.h"
-#include "Game/Boss/States/PartNormalState.h"
-#include "Game/Boss/States/PartBrokenState.h"
-
 
 
 /// <summary>
@@ -22,7 +19,6 @@ BossPart::BossPart(const Vector2D& pos, float radius, int maxHp)
 	, m_maxHp          { maxHp }
 	, m_centerPosition {pos}
 	, m_radius         {radius}
-	, m_state		   { nullptr }
 {
 }
 
@@ -31,7 +27,7 @@ BossPart::BossPart(const Vector2D& pos, float radius, int maxHp)
 /// </summary>
 void BossPart::Initialize()
 {
-	ChangeState(std::make_unique<PartNormalState>());
+	ChangeState(&m_normalState);
 }
 
 /// <summary>
@@ -88,10 +84,10 @@ void BossPart::TakeDamage(int damage)
 	if (m_hp < 0) m_hp = 0; // HPを0以下にしない
 
 	// 現在の状態に「ダメージを受けた」と伝え、遷移先があれば切り替える
-	std::unique_ptr<BossPartState> nextState = m_state->OnDamaged(*this);
-	if (nextState)
+	BossPartState* nextState = m_state->OnDamaged(*this);
+	if (nextState != nullptr)
 	{
-		ChangeState(std::move(nextState));
+		ChangeState(nextState);
 	}
 }
 
@@ -182,7 +178,7 @@ void BossPart::ForceBreak()
 	if (IsBroken()) return;   // すでに壊れていたら何もしない
 
 	m_hp = 0;
-	ChangeState(std::make_unique<PartBrokenState>());
+	ChangeState(&m_brokenState);
 }
 
 
@@ -212,13 +208,13 @@ bool BossPart::TakeDamageFromAttack(int damage, int attackId)
 /// <summary>
 /// ステートを変更
 /// </summary>
-void BossPart::ChangeState(std::unique_ptr<BossPartState> nextState)
+void BossPart::ChangeState(BossPartState* nextState)
 {
 	if (m_state)
 	{
 		m_state->Exit(*this);   // 古い状態の終了処理
 	}
 
-	m_state = std::move(nextState);   // 古い状態が delete され、入れ替わる
-	m_state->Enter(*this);            // 新しい状態の開始処理
+	m_state = nextState; // ポインタを切り替える
+	m_state->Enter(*this); // 新しい状態の開始処理
 }

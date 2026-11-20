@@ -45,7 +45,7 @@ private:
 	bool m_attackHit{};
 
 	// 攻撃ID（攻撃が新しく節に当たるたびに 1ずつ増える識別番号）
-	int m_attackedId;
+	int m_attackedId{};
 
 	// キー入力
 	int m_keyCondition{};   ///< 現在のキー情報（押している間）

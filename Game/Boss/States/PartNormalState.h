@@ -10,7 +10,6 @@
 
 #pragma once
 #include "Game/Boss/BossPartState.h"
-#include <memory>
  // クラスの宣言 ===============================================================
 class BossPart;
 
@@ -26,7 +25,7 @@ class BossPart;
 class PartNormalState : public BossPartState
 {
 public:
-	std::unique_ptr<BossPartState> OnDamaged(BossPart& bossPart) override;
+	BossPartState* OnDamaged(BossPart& bossPart) override;
 	unsigned int GetBodyColor() const override;
 	const wchar_t* GetName() const override { return L"Normal"; }
 };

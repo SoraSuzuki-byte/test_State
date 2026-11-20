@@ -21,19 +21,19 @@
 /// ダメージを受けた後の状態判定
 /// </summary>
 /// <returns>遷移先の状態（遷移しないなら nullptr）</returns>
-std::unique_ptr<BossPartState> PartNormalState::OnDamaged(BossPart& bossPart)
+BossPartState* PartNormalState::OnDamaged(BossPart& bossPart)
 {
 	// 先ず「壊れたか」を確認する（一撃で壊れる場合があるため）
 	if (bossPart.GetHp() <= 0)
 	{
-		return std::make_unique<PartBrokenState>();
+		return bossPart.GetPartBrokenState();
 	}
 
 	// HPが半分以下になったら Damaged へ（掛け算にすると float が要らない）	// 両辺を 2 倍しても不等式の意味は変わらない！
 																			//  HP <= MaxHP / 2  ⟺  HP * 2 <= MaxHP
 	if (bossPart.GetHp() * 2 <= bossPart.GetMaxHp())
 	{
-		return std::make_unique<PartDamagedState>();
+		return bossPart.GetPartDamagedState();
 	}
 
 	return nullptr;

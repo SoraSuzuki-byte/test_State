@@ -9,7 +9,6 @@
  */
 
 #pragma once
-#include <memory>
  // クラスの宣言 ===============================================================
 class BossPart;
 
@@ -29,7 +28,8 @@ public:
 	virtual void Enter(BossPart& bossPart) { UNREFERENCED_PARAMETER(bossPart); } // UNREFERENCED_PARAMETER(bossPart); を書く理由 → bossPart を使用しない場合に、未使用引数の警告が出ないようにするため。
 
 	// ダメージを受けた後に呼ぶ。遷移先を返し、遷移しないなら nullptr
-	virtual std::unique_ptr<BossPartState> OnDamaged(BossPart& bossPart) = 0;
+	virtual BossPartState* OnDamaged(BossPart& bossPart) = 0;
+
 	// 状態から出る時の処理
 	virtual void Exit(BossPart& bossPart) { UNREFERENCED_PARAMETER(bossPart); }
 

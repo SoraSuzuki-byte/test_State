@@ -16,12 +16,12 @@
  // ===========================================================================
  // PartDamagedState（HPが半分以下）
  // ===========================================================================
-std::unique_ptr<BossPartState> PartDamagedState::OnDamaged(BossPart& bossPart)
+BossPartState* PartDamagedState::OnDamaged(BossPart& bossPart)
 {
 	// 0以下になったら、Brokenへ
 	if (bossPart.GetHp() <= 0)
 	{
-		return std::make_unique<PartBrokenState>();
+		return bossPart.GetPartBrokenState();
 	}
 
 	return nullptr;

@@ -12,17 +12,35 @@
 #include "Library/GameMath.h"
 #include "IBossPartObserver.h"
 #include "BossPartState.h"
+#include "Game/Boss/States/PartNormalState.h"
+#include "Game/Boss/States/PartDamagedState.h"
+#include "Game/Boss/States/PartBrokenState.h"
+
 class BossPart
 {
 private:
-	// 何番目の節か
-	int m_index{};
+	// 通常のステート
+	PartNormalState m_normalState;
+
+	// HPが半分以下のステート
+	PartDamagedState m_damagedState;
+
+	// 壊れたステート
+	PartBrokenState m_brokenState;
+
+	// 今のステート
+	BossPartState*    m_state       {nullptr};
+
 
 	// 部位破壊などのイベントを通知するオブジェクト（通知先）
 	IBossPartObserver* m_observer{ nullptr };
 
+	// 何番目の節か
+	int m_index{};
+
 	// 現在のHP
 	int m_hp{};
+
 	// 最大HP（記録用）
 	int m_maxHp{};
 
@@ -32,8 +50,7 @@ private:
 	// 半径
 	float m_radius{};
 
-	// 今のステート
-	std::unique_ptr<BossPartState> m_state{};
+
 
 	// 最後にダメージを受けた攻撃の番号（0 は「まだなし」）
 	int m_lastAttackId{};
@@ -41,6 +58,14 @@ private:
 public:
 	BossPart(const Vector2D& pos, float radius, int maxHp);
 	//~BossPart();
+
+	// 自分のメンバを指すポインタを持つため、コピーとムーブを禁止する
+	BossPart(const BossPart&) = delete;
+	BossPart& operator=(const BossPart&) = delete;
+	BossPart(BossPart&&) = delete;
+	BossPart& operator=(BossPart&&) = delete;
+
+	// 初期化・描画
 	void Initialize();
 	void Render()const;
 
@@ -58,6 +83,11 @@ public:
 
 	// 最大HPを取得する
 	int GetMaxHp() const;
+
+	// Stateの取得
+	PartNormalState* GetPartNormalState() { return &m_normalState; }
+	PartDamagedState* GetPartDamagedState(){ return &m_damagedState; }
+	PartBrokenState* GetPartBrokenState(){ return &m_brokenState; }
 
 	// 位置を変える
 	void SetPosition(const Vector2D& pos);
@@ -84,7 +114,7 @@ private:
 	/// <summary>
 	/// ステートを変更
 	/// </summary>
-	void ChangeState(std::unique_ptr<BossPartState> nextState);
+	void ChangeState(BossPartState* nextState);
 
 };
 
