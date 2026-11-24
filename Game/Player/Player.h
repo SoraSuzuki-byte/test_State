@@ -41,6 +41,9 @@ private:
 	float m_velocityY{};    ///< Y方向の速度
 	bool  m_facingRight{true}; ///< 右向きか
 
+	// 触手などの足場に乗っているか
+	bool m_isOnPlatform{};
+
 	// 攻撃用クールダウン
 	float m_attackCooldown{};
 

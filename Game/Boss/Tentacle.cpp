@@ -198,7 +198,7 @@ void Tentacle::OnPartBroken(int index)
 /// <param name="radius">円の半径</param>
 /// <param name="pushOut">円を押し出すベクトル</param>
 /// <returns>いずれかの節と重なっているか</returns>
-bool Tentacle::CollideWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const
+bool Tentacle::IsCollidingWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const
 {
 	pushOut.x = 0.0f;
 	pushOut.y = 0.0f;
@@ -220,13 +220,13 @@ bool Tentacle::CollideWithCircle(const Vector2D& center, float radius, Vector2D&
 		if (!m_parts[i]->CalcPushOut(center, radius, push)) continue;
 
 		isHit = true;
-
-		const float depthSq = ((push.x * push.x) + (push.y * push.y));
-		if (depthSq > maxDepthSq)
-		{
-			maxDepthSq = depthSq;
-			pushOut = push;
-		}
+		// 同じ向きの押し出しが重なっても2倍にならないよう、絶対値が大きい方を採用する
+		if (std::abs(push.x) > std::abs(pushOut.x)) {
+			pushOut.x = push.x;
+		};
+		if (std::abs(push.y) > std::abs(pushOut.y)) {
+			pushOut.y = push.y;
+		};
 	}
 #pragma endregion
 

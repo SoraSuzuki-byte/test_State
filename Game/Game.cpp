@@ -94,7 +94,7 @@ void Game::Update(float elapsedTime)
 
 	// 触手とPlayerの体の判定（押し戻しと、触手が攻撃中ならPlayerにダメージを与える）
 	Vector2D pushOut;
-	if (m_tentacle.CollideWithCircle(m_player->GetBodyCenter(), m_player->GetBodyRadius(), pushOut))
+	if (m_tentacle.IsCollidingWithCircle(m_player->GetBodyCenter(), m_player->GetBodyRadius(), pushOut))
 	{
 		// 触れていれば、攻撃中でなくても押し戻す
 		m_player->ApplyPushOut(pushOut);

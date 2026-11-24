@@ -106,7 +106,7 @@ public:
 	/// <param name="radius">円の半径</param>
 	/// <param name="pushOut">円を押し出すベクトル</param>
 	/// <returns>いずれかの節と重なっているか</returns>
-	bool CollideWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const;
+	bool IsCollidingWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const;
 
 private:
 	// 崩壊（壊れた節より 先端側を、1節ずつ壊していく）を、進める

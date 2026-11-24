@@ -105,11 +105,15 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 	UpdatePosition(elapsedTime);
 
 	// 着地補正の処理
-	if (IsGrounded() && IsFalling())
+	if ((GetY() >= PlayerConstants::GROUND_Y)
+		&& (IsFalling()))
 	{
 		m_y = PlayerConstants::GROUND_Y;
 		SetVelocityY(0.0f);
 	}
+
+	// 次のフレームの当たり判定に備えてリセット（触手に乗り続けていれば、この直後の Game::Update で再び true になる）
+	m_isOnPlatform = false;
 }
 
 
@@ -243,6 +247,18 @@ void Player::ApplyPushOut(const Vector2D& pushOut)
 {
 	m_x += pushOut.x;
 	m_y += pushOut.y;
+
+	// 上向きに押し戻された（足場の上に乗った）
+	if (pushOut.y < 0.0f)
+	{
+		m_isOnPlatform = true;
+
+		// 落下速度を0に
+		if (m_velocityY > 0.0f)
+		{
+			m_velocityY = 0.0f;
+		}
+	}
 	ClampToScreen(); // 画面から出ないようにする
 }
 
@@ -469,5 +485,6 @@ void Player::ApplyGravity(float elapsedTime)
 /// <returns>着地しているか</returns>
 bool Player::IsGrounded() const
 {
-	 return (GetY() >= PlayerConstants::GROUND_Y);
+	 return (GetY() >= PlayerConstants::GROUND_Y
+			|| m_isOnPlatform);
 }
