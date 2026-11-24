@@ -1,3 +1,13 @@
+/**
+ * @file   Boss.cpp
+ *
+ * @brief  Bossたちの基底クラス
+ *
+ * @author 鈴木蒼良
+ *
+ * @date   2026年11月24日
+ */
+
 #include "pch.h"
 #include "Boss.h"
 #include <algorithm>

@@ -42,7 +42,7 @@
     <Filter Include="Game\Boss\States">
       <UniqueIdentifier>{ebc695a3-c996-4c7d-9428-4ef6e707d042}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Boss\TentacleBoss">
+    <Filter Include="Game\Boss\OctopusOBoss">
       <UniqueIdentifier>{2bbeace1-4aa1-4dea-83ec-6205b94a145a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -126,9 +126,6 @@
     <ClCompile Include="Game\Boss\States\PartBrokenState.cpp">
       <Filter>Game\Boss\States</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Boss\TentacleBoss\Tentacle.cpp">
-      <Filter>Game\Boss\TentacleBoss</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player\States\RunState.cpp">
       <Filter>Game\Player\States</Filter>
     </ClCompile>
@@ -136,6 +133,12 @@
       <Filter>Game\Player\States</Filter>
     </ClCompile>
     <ClCompile Include="Game\Boss\Boss.cpp" />
+    <ClCompile Include="Game\Boss\OctopusBoss\OctopusBoss.cpp">
+      <Filter>Game\Boss\OctopusOBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Boss\OctopusBoss\Tentacle.cpp">
+      <Filter>Game\Boss\OctopusOBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -195,9 +198,6 @@
     <ClInclude Include="Game\Boss\States\BossPartState.h">
       <Filter>Game\Boss\States</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Boss\TentacleBoss\Tentacle.h">
-      <Filter>Game\Boss\TentacleBoss</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Player\States\PlayerState.h">
       <Filter>Game\Player\States</Filter>
     </ClInclude>
@@ -206,6 +206,12 @@
     </ClInclude>
     <ClInclude Include="Game\Boss\Boss.h">
       <Filter>Game\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\OctopusBoss\OctopusBoss.h">
+      <Filter>Game\Boss\OctopusOBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\OctopusBoss\Tentacle.h">
+      <Filter>Game\Boss\OctopusOBoss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

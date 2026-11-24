@@ -1,7 +1,7 @@
 ﻿/**
  * @file   IBossPartObserver.h
  *
- * @brief  ボスの状態変化を通知する　インターフェースクラス
+ * @brief  ボスの状態変化を部位へ通知する　インターフェースクラス
  *
  * @author 鈴木蒼良
  *
