@@ -257,6 +257,20 @@ bool BossPart::CalcPushOut(const Vector2D& center, float radius, Vector2D& pushO
 
 
 /// <summary>
+/// 壊れた部位を初期状態（通常状態・最大HP）に復活させる
+/// </summary>
+void BossPart::Revive()
+{
+	m_hp = m_maxHp;
+	m_lastAttackId = 0;
+	ChangeState(&m_normalState);
+}
+
+
+
+
+
+/// <summary>
 /// ステートを変更
 /// </summary>
 void BossPart::ChangeState(BossPartState* nextState)

@@ -92,7 +92,6 @@ void Game::Update(float elapsedTime)
 
 	m_player->Update(elapsedTime, keyCondition, keyTrigger);
 	m_boss->Update(elapsedTime);
-	m_boss->Update(elapsedTime);
 
 	// 触手とPlayerの体の判定（押し戻しと、触手が攻撃中ならPlayerにダメージを与える）
 	Vector2D pushOut;
@@ -107,7 +106,6 @@ void Game::Update(float elapsedTime)
 				m_player->TakeDamage(1);
 			}
 	}
-
 }
 
 
@@ -130,6 +128,8 @@ void Game::Render()
 	m_player->Render();
 
 	m_boss->Render();
+	m_boss->RenderHpBar();
+
 
 	// 操作説明
 	DrawString(10, 30, L"←→:移動  Z:ジャンプ  X:攻撃", GetColor(200, 200, 200));

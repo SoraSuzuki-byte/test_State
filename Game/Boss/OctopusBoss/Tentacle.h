@@ -45,11 +45,12 @@ private:
 	// 触手全体が届く最大の距離（これより遠いプレイヤーは、部位を調べなくてよい）
 	static constexpr float REACH = SEGMENT_COUNT * SEGMENT_LENGTH + BASE_RADIUS;
 
-	// 攻撃と待機を切り替える間隔（秒）
-	static constexpr float ATTACK_MODE_INTERVAL = 2.0f;
 
 	// 付け根の座標
 	Vector2D m_root;
+
+	// 本来の付け根の座標
+	Vector2D m_homeRoot;
 
 	// 部位（位置・半径・HP・状態を持つ）
 	std::vector<std::unique_ptr<BossPart>> m_parts;
@@ -65,9 +66,6 @@ private:
 
 	// 攻撃中であるか
 	bool m_isAttacking{};
-
-	// 攻撃モードに切り替えるタイマー
-	float m_attackModeTimer{ ATTACK_MODE_INTERVAL };
 
 	// 部位が壊れたことを通知する先
 	ITentacleObserver* m_observer{ nullptr };
@@ -103,6 +101,7 @@ public:
 	/// <returns>攻撃中かどうか</returns>
 	bool IsAttacking() const { return m_isAttacking; }
 
+
 	/// <summary>
 	/// 円（プレイヤ等）と触手の各部位との当たり判定を行い、押し戻しベクトルを計算する
 	/// </summary>
@@ -112,11 +111,32 @@ public:
 	/// <returns>いずれかの部位と重なっているか</returns>
 	bool IsCollidingWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const;
 	
+
 	/// <summary>
 	/// 通知先（ボス）を登録する
 	/// </summary>
 	/// <param name="observer">通知先のオブザーバー</param>
 	void SetObserver(ITentacleObserver* observer) { m_observer = observer; }
+
+
+	/// <summary>
+	/// 本来の位置からのずらし量（オフセット）を設定する
+	/// </summary>
+	/// <param name="offset">基準位置からの移動量</param>
+	void SetRootOffset(const Vector2D& offset);
+
+	
+	/// <summary>
+	/// 壊れた部位と崩壊状態を元に戻す
+	/// </summary>
+	void Restore();
+
+
+	/// <summary>
+	/// 攻撃中かどうかを設定する
+	/// </summary>
+	/// <param name="isAttacking">攻撃中ならtrue</param>
+	void SetAttacking(bool isAttacking) { m_isAttacking = isAttacking; }
 
 
 private:
@@ -126,4 +146,3 @@ private:
 
 private:
 };
-

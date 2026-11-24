@@ -50,8 +50,6 @@ private:
 	// 半径
 	float m_radius{};
 
-
-
 	// 最後にダメージを受けた攻撃の番号（0 は「まだなし」）
 	int m_lastAttackId{};
 
@@ -123,6 +121,10 @@ public:
 	bool CalcPushOut(const Vector2D& center, float radius, Vector2D& pushOut) const;
 
 
+	/// <summary>
+	/// 壊れた部位を初期状態（通常状態・最大HP）に復活させる
+	/// </summary>
+	void Revive();
 
 // 内部処理
 private:

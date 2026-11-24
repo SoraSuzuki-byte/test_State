@@ -13,7 +13,8 @@
 /// </summary>
 /// <param name="root">付け根の位置</param> 
 Tentacle::Tentacle(const Vector2D& root)
-	: m_root { root }
+	: m_homeRoot { root }
+	, m_root { root }
 {
 	// 先に確保（途中で vector が再確保されてしまわないように）
 	m_parts.reserve(SEGMENT_COUNT);
@@ -41,6 +42,10 @@ Tentacle::Tentacle(const Vector2D& root)
 Tentacle::~Tentacle()
 {
 }
+
+
+
+
 
 /// <summary>
 /// 更新
@@ -73,14 +78,6 @@ void Tentacle::Update(float elapsedTime)
 
 	// 崩壊を始める
 	UpdateCollapse(elapsedTime);
-
-	// 一定時間ごとに、攻撃中と待機中を切り替える（仮の動き）
-	m_attackModeTimer -= elapsedTime;
-	if (m_attackModeTimer <= 0.0f)
-	{
-		m_isAttacking = !m_isAttacking;
-		m_attackModeTimer += ATTACK_MODE_INTERVAL;   // 引き算ではなく足すと、時間のずれがたまらない
-	}
 }
 
 
@@ -234,6 +231,37 @@ bool Tentacle::IsCollidingWithCircle(const Vector2D& center, float radius, Vecto
 #pragma endregion
 
 	return isHit;
+}
+
+
+
+
+
+/// <summary>
+/// 本来の位置からのずらし量（オフセット）を設定する
+/// </summary>
+/// <param name="offset">基準位置からの移動量</param>
+void Tentacle::SetRootOffset(const Vector2D& offset)
+{
+	m_root = m_homeRoot + offset;
+}
+
+
+
+
+
+/// <summary>
+/// 壊れた部位と崩壊状態を元に戻す
+/// </summary>
+void Tentacle::Restore()
+{
+	for (auto& part : m_parts)
+	{
+		part->Revive();
+	}
+
+	m_collapseIndex = -1;
+	m_collapseTimer = 0.0f;
 }
 
 
