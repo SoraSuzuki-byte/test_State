@@ -140,6 +140,7 @@
   <!-- ファイル -->
   <ItemGroup>
     <!-- プリコンパイル済みヘッダー -->
+    <ClCompile Include="Game\Boss\Boss.cpp" />
     <ClCompile Include="Game\Boss\BossPart.cpp" />
     <ClCompile Include="Game\Boss\States\PartBrokenState.cpp" />
     <ClCompile Include="Game\Boss\States\PartDamagedState.cpp" />
@@ -156,6 +157,7 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClInclude Include="Game\Boss\Boss.h" />
     <ClInclude Include="Game\Boss\BossConstants.h" />
     <ClInclude Include="Game\Boss\BossPart.h" />
     <ClInclude Include="Game\Boss\IBossPartObserver.h" />

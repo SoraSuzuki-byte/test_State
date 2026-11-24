@@ -135,6 +135,7 @@
     <ClCompile Include="Game\Player\States\AirState.cpp">
       <Filter>Game\Player\States</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Boss\Boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -202,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="Game\Player\States\AirState.h">
       <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\Boss.h">
+      <Filter>Game\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

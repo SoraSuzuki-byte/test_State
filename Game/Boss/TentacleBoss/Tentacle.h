@@ -85,7 +85,7 @@ public:
 	void Render() const;
 
 
-	// 円と重なっている節にダメージを与える（当たった節の数字を返す）
+	// 円と重なっている節にダメージを与える（当たった節の個数を返す）
 	int TakeDamageByCircle(const Vector2D& center, float radius, int damage, int attackId);
 
 	// index 番目の節にダメージを与える

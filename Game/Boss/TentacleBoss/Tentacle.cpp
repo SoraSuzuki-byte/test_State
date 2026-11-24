@@ -121,7 +121,7 @@ void Tentacle::Render() const
 
 
 /// <summary>
-/// 円と重なっている節にダメージを与える（当たった節の数字を返す）
+/// 円と重なっている、節にダメージを与える（当たった節の個数を返す）
 /// </summary>
 /// <param name="center">円の中心</param>
 /// <param name="radius">円の半径</param>
@@ -133,10 +133,8 @@ int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damag
 
 	for (int i = 0; i < SEGMENT_COUNT; i++)
 		{
-			if (m_parts[i]->IsHit(center, radius))
-			{
-				// 同じ攻撃ですでに当たった節ならfalse
-				if (m_parts[i]->TakeDamageFromAttack(damage, attackId))
+			if (m_parts[i]->IsHit(center, radius)) {				
+				if (m_parts[i]->TakeDamageFromAttack(damage, attackId))// 同じ攻撃ですでに当たった節ならfalse
 				{
 					hitCount++;
 				}

@@ -1,5 +1,5 @@
 /**
- * @file   PlayerConstants.h
+ * @file   BossConstants.h
  *
  * @brief  Bossたちの定数をまとめるヘッダファイル
  *
