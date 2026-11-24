@@ -31,6 +31,9 @@ class Player
 {
 // データメンバの宣言 -----------------------------------------------
 private:
+	int   m_hp{};               // コンストラクタで MAX_HP を入れる
+	float m_invincibleTimer{};  // 無敵の残り時間
+
 	// 位置・速度
 	float m_x{};            ///< X座標（中心）
 	float m_y{};            ///< Y座標（足元）
@@ -76,8 +79,32 @@ public:
 	// 状態の変更
 	void ChangeState(PlayerState* nextState);
 
-	// X方向に移動（画面外に出ないよう制限する）
+
+	/// <summary>
+	/// X方向に移動する（画面外に出ないようにも制限する）
+	/// </summary>
+	/// <param name="dx">移動量</param>
 	void MoveX(float dx);
+
+
+	/// <summary>
+	/// 画面外に出ないように位置を制限する
+	/// </summary>
+	void ClampToScreen();
+
+
+	/// <summary>
+	/// ダメージを受ける
+	/// </summary>
+	/// <param name="damage">受けるダメージの量</param>
+	void TakeDamage(int damage);
+
+
+	/// <summary>
+	/// 位置の押し戻し（障害物や 敵との重なりを解消するため）
+	/// </summary>
+	/// <param name="pushOut">押し戻すベクトル</param>
+	void ApplyPushOut(const Vector2D& pushOut);
 
 
 // 入力
@@ -92,6 +119,7 @@ public:
 	int GetMoveDirection() const;
 
 
+#pragma region 取得/設定
 // 取得/設定
 public:
 	// 攻撃できるかを返す
@@ -111,12 +139,6 @@ public:
 	/// </summary>
 	/// <returns>攻撃の円の半径</returns>
 	float GetAttackRadius() const;
-
-	// 当たったことを記録する
-	void OnAttackHit();
-
-	// 当たった記録を消す（攻撃開始時に呼ぶ）
-	void ResetAttackHit();
 
 	// 攻撃のクールダウンタイムのセット
 	void StartAttackCooldown();
@@ -169,6 +191,7 @@ public:
 
 	// 下向きに移動しているか（落下中か）
 	bool IsFalling() const { return m_velocityY >= 0.0f; }
+#pragma endregion
 
 // 内部処理
 private:

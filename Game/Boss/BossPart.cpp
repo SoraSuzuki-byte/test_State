@@ -8,6 +8,7 @@
  * @date   2026年10月21日
  */
 #include "pch.h"
+#include <cmath>
 #include "BossPart.h"
 
 
@@ -199,6 +200,56 @@ bool BossPart::TakeDamageFromAttack(int damage, int attackId)
 	m_lastAttackId = attackId;
 	TakeDamage(damage);
 	return true;
+}
+
+
+
+
+
+
+/// <summary>
+/// 円と重なっているか判定し、重なっていれば押し戻すベクトルを計算する
+/// </summary>
+/// <param name="center">円の中心</param>
+/// <param name="radius">円の半径</param>
+/// <param name="pushOut">円を押し出すベクトル（出力用）</param>
+/// <returns>円と重なっているかどうか</returns>
+bool BossPart::CalcPushOut(const Vector2D& center, float radius, Vector2D& pushOut) const
+{
+	if (IsBroken()) return false; // 壊れた節は、すり抜ける
+
+	// 節からPlayerへ向かうベクトル
+	const float dx = center.x - m_centerPosition.x;
+	const float dy = center.y - m_centerPosition.y;
+	const float r  = m_radius + radius;
+	const float distSq = (dx * dx) + (dy * dy);
+
+	// 重なっていなければ、早期リターン
+	if (distSq >= (r * r)) return false;
+
+
+	// ほぼ 0 のときは、割るとエラーになる ー>　その場合は,上に押し出し処理
+	if (distSq < 0.0001f) //(双方の中心座標の差がなければ)
+	{
+		pushOut.x = 0.0f;
+		pushOut.y = -r;
+		return true;
+	}
+
+
+	// めり込んだ深さの分、節から離れる向きに押す
+	{
+		const float dist = std::sqrt(distSq); // 正確な大きさを使うため、2乗をもとの1乗に戻す（2乗は、大きさの比較なら使えた）
+
+		// 斜めにめり込んだ量を計算
+		const float depth = r - dist; // 
+
+		// 斜めの めり込み量を XとYの比率に分けたあと、重なっている長さ(depth)を 掛ける
+		pushOut.x = (dx / dist) * depth;
+		pushOut.y = (dy / dist) * depth;
+
+		return true;
+	}
 }
 
 

@@ -73,7 +73,19 @@ void Tentacle::Update(float elapsedTime)
 
 	// 崩壊を始める
 	UpdateCollapse(elapsedTime);
+
+	// 一定時間ごとに、攻撃中と待機中を切り替える（仮の動き）
+	m_attackModeTimer -= elapsedTime;
+	if (m_attackModeTimer <= 0.0f)
+	{
+		m_isAttacking = !m_isAttacking;
+		m_attackModeTimer += ATTACK_MODE_INTERVAL;   // 引き算ではなく足すと、時間のずれがたまらない
+	}
 }
+
+
+
+
 
 /// <summary>
 /// 描画
@@ -85,7 +97,26 @@ void Tentacle::Render() const
 	{
 		m_parts[i]->Render();
 	}
+
+	// 攻撃中は、壊れていない節に赤い輪郭を付ける
+	if (m_isAttacking)
+	{
+		for (const auto& part : m_parts)
+		{
+			if (part->IsBroken()) continue;
+
+			const Vector2D c = part->GetCenter();
+			DrawCircle(static_cast<int>(c.x),
+				static_cast<int>(c.y),
+				static_cast<int>(part->GetRadius()) + 2,
+				GetColor(255, 60, 60),
+				FALSE,
+				3);   // 線の太さ
+		}
+	}
 }
+
+
 
 
 
@@ -115,6 +146,10 @@ int Tentacle::TakeDamageByCircle(const Vector2D& center, float radius, int damag
 	return hitCount;
 }
 
+
+
+
+
 /// <summary>
 /// index番目の節にダメージを与える
 /// </summary>
@@ -127,6 +162,10 @@ void Tentacle::TakeDamage(int index, int damage)
 
 	m_parts[index]->TakeDamage(damage);
 }
+
+
+
+
 
 /// <summary>
 /// 節が 壊れた時に呼ばれる（Observer）
@@ -147,6 +186,56 @@ void Tentacle::OnPartBroken(int index)
 		m_collapseTimer = COLLAPSE_INTERVAL;
 	}
 }
+
+
+
+
+
+/// <summary>
+/// 円（プレイヤ等）と触手の各節との当たり判定を行い、押し戻しベクトルを計算する
+/// </summary>
+/// <param name="center">円の中心座標</param>
+/// <param name="radius">円の半径</param>
+/// <param name="pushOut">円を押し出すベクトル</param>
+/// <returns>いずれかの節と重なっているか</returns>
+bool Tentacle::CollideWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const
+{
+	pushOut.x = 0.0f;
+	pushOut.y = 0.0f;
+
+	// そもそも、触手全体を囲む 大きな円と重なっていなければ早期リターン
+	const float dx = center.x - m_root.x;
+	const float dy = center.y - m_root.y;
+	const float reach = REACH + radius;
+	if ((dx * dx) + (dy * dy) > (reach * reach)) return false;
+
+#pragma region 各節を調べて最も深くめり込んでいる押し出しを 採用する
+	bool isHit = false;
+	float maxDepthSq = 0.0f;
+
+	for (int i = 0; i < SEGMENT_COUNT; i++)
+	{
+		Vector2D push;
+		//　当たっていなければ、スキップ
+		if (!m_parts[i]->CalcPushOut(center, radius, push)) continue;
+
+		isHit = true;
+
+		const float depthSq = ((push.x * push.x) + (push.y * push.y));
+		if (depthSq > maxDepthSq)
+		{
+			maxDepthSq = depthSq;
+			pushOut = push;
+		}
+	}
+#pragma endregion
+
+	return isHit;
+}
+
+
+
+
 
 /// <summary>
 /// 崩壊を進める

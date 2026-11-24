@@ -29,4 +29,8 @@ namespace PlayerConstants
 
 	constexpr float ATTACK_TIME = 0.3f;    ///< 攻撃の持続時間（秒）
 	constexpr float ATTACK_COOLDOWN = 0.3f;///< 攻撃のクールダウン（秒）
+
+	// 被ダメージ関連
+	constexpr int   MAX_HP = 100;
+	constexpr float INVINCIBLE_TIME = 1.0f;   ///< ダメージ後の無敵時間（秒）
 }

@@ -41,6 +41,11 @@ private:
 	// 崩壊が次の節へ進むまでの時間（秒）
 	static constexpr float COLLAPSE_INTERVAL = 0.15f;
 
+	// 触手全体が届く最大の距離（これより遠いプレイヤーは、節を調べなくてよい）
+	static constexpr float REACH = SEGMENT_COUNT * SEGMENT_LENGTH + BASE_RADIUS;
+
+	// 攻撃と待機を切り替える間隔（秒）
+	static constexpr float ATTACK_MODE_INTERVAL = 2.0f;
 
 	// 付け根の座標
 	Vector2D m_root;
@@ -57,6 +62,11 @@ private:
 	// 次の節を壊すまでの残り時間
 	float m_collapseTimer{};
 
+	// 攻撃中であるか
+	bool m_isAttacking{};
+
+	// 攻撃モードに切り替えるタイマー
+	float m_attackModeTimer{ ATTACK_MODE_INTERVAL };
 
 public:
 	// コンストラクタ / デストラクタ
@@ -73,6 +83,7 @@ public:
 	void Update(float elapsedTime);
 	void Render() const;
 
+
 	// 円と重なっている節にダメージを与える（当たった節の数字を返す）
 	int TakeDamageByCircle(const Vector2D& center, float radius, int damage, int attackId);
 
@@ -81,6 +92,21 @@ public:
 
 	// 節が壊れた時に呼ばれる (Observer)
 	void OnPartBroken(int index) override;
+
+	/// <summary>
+	/// 攻撃中のフラグを取得
+	/// </summary>
+	/// <returns>攻撃中かどうか</returns>
+	bool IsAttacking() const { return m_isAttacking; }
+
+	/// <summary>
+	/// 円（プレイヤ等）と触手の各節との当たり判定を行い、押し戻しベクトルを計算する
+	/// </summary>
+	/// <param name="center">円の中心座標</param>
+	/// <param name="radius">円の半径</param>
+	/// <param name="pushOut">円を押し出すベクトル</param>
+	/// <returns>いずれかの節と重なっているか</returns>
+	bool CollideWithCircle(const Vector2D& center, float radius, Vector2D& pushOut) const;
 
 private:
 	// 崩壊（壊れた節より 先端側を、1節ずつ壊していく）を、進める

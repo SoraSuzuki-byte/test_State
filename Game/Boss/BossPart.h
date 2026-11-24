@@ -84,6 +84,10 @@ public:
 	// 最大HPを取得する
 	int GetMaxHp() const;
 
+	// 節の描画に使う
+	Vector2D GetCenter() const { return m_centerPosition; }
+	float GetRadius() const { return m_radius; }
+
 	// Stateの取得
 	PartNormalState* GetPartNormalState() { return &m_normalState; }
 	PartDamagedState* GetPartDamagedState(){ return &m_damagedState; }
@@ -108,6 +112,17 @@ public:
 	/// <param name="attackId">攻撃の識別番号（多段ヒット防止用）</param>
 	/// <returns>ダメージを受けた場合はtrue、すでにヒット済みの場合はfalse</returns>
 	bool TakeDamageFromAttack(int damage, int attackId);
+
+	/// <summary>
+	/// 円と重なっているか判定し、重なっていれば押し戻すベクトルを計算して処理もする
+	/// </summary>
+	/// <param name="center">円の中心</param>
+	/// <param name="radius">円の半径</param>
+	/// <param name="pushOut">円を押し出すベクトル（出力用）</param>
+	/// <returns>円と重なっているかどうか</returns>
+	bool CalcPushOut(const Vector2D& center, float radius, Vector2D& pushOut) const;
+
+
 
 // 内部処理
 private:

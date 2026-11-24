@@ -72,9 +72,8 @@ void Game::Initialize()
  */
 void Game::Update(float elapsedTime)
 {
-	m_gameContext.inputManager.Update();
-
 	// キー入力情報を取得する
+	m_gameContext.inputManager.Update();
 	const int keyCondition = m_gameContext.inputManager.GetKeyCondition();
 	const int keyTrigger = m_gameContext.inputManager.GetKeyTrigger();
 
@@ -90,13 +89,23 @@ void Game::Update(float elapsedTime)
 			m_player->GetAttackId());
 	}
 
-
-
-
-
-	// ゲームの更新
 	m_player->Update(elapsedTime, keyCondition, keyTrigger);
 	m_tentacle.Update(elapsedTime);
+
+	// 触手とPlayerの体の判定（押し戻しと、触手が攻撃中ならPlayerにダメージを与える）
+	Vector2D pushOut;
+	if (m_tentacle.CollideWithCircle(m_player->GetBodyCenter(), m_player->GetBodyRadius(), pushOut))
+	{
+		// 触れていれば、攻撃中でなくても押し戻す
+		m_player->ApplyPushOut(pushOut);
+
+		// ダメージは、攻撃中のときだけ
+			if (m_tentacle.IsAttacking())
+			{
+				m_player->TakeDamage(10);
+			}
+	}
+
 }
 
 

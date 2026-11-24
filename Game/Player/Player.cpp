@@ -10,6 +10,7 @@
 
 // ヘッダファイルの読み込み ===================================================
 #include "Player.h"
+#include <algorithm>
 
 #include "Game/Screen.h"
 #include "PlayerConstants.h"
@@ -48,6 +49,8 @@ void Player::Initialize()
 	m_x = 100.0f + PlayerConstants::HALF_WIDTH;
 	m_y = PlayerConstants::GROUND_Y;
 
+	m_hp = PlayerConstants::MAX_HP;
+
 	// 最初は IdleState
 	ChangeState(&m_idle);
 }
@@ -70,14 +73,19 @@ void Player::Update(float elapsedTime, int keyCondition, int keyTrigger)
 	m_keyCondition = keyCondition;
 	m_keyTrigger = keyTrigger;
 
-	// クールダウンの処理
-	if (m_attackCooldown > 0.0f) {
-		m_attackCooldown-= elapsedTime;
 
-		if (m_attackCooldown < 0.0f) {
-			m_attackCooldown = 0.0f;
-		}
+	// std::max()は、大きい方の値を返す
+	
+	// 攻撃のクールダウン
+	if (m_attackCooldown > 0.0f) {
+		m_attackCooldown = std::max(0.0f, m_attackCooldown - elapsedTime);
 	}
+
+	// 無敵時間のクールダウン
+	if (m_invincibleTimer > 0.0f) {
+		m_invincibleTimer = std::max(0.0f, m_invincibleTimer - elapsedTime);
+	}
+
 
 	// 現在の状態に処理を任せ、遷移先があれば切り替える
 	PlayerState* nextState = m_state->Update(*this, elapsedTime);
@@ -148,6 +156,7 @@ void Player::Render() const
 	DrawString(70, 10, m_state->GetName(), GetColor(255, 255, 255));
 	DrawFormatString(10, 50, GetColor(255, 255, 255), L"VelX: %.1f", m_velocityX);
 	DrawFormatString(10, 100, GetColor(255, 255, 255), L"VelY: %.1f", m_velocityY);
+	DrawFormatString(10, 150, GetColor(255, 255, 255), L"HP: %d", m_hp);
 }
 
 
@@ -175,25 +184,66 @@ void Player::ChangeState(PlayerState* nextState)
 
 
 /// <summary>
-/// X方向に移動（画面外に出ないよう制限する）
+/// X方向に移動する（画面外に出ないよう制限にもする）
 /// </summary>
 /// <param name="dx">移動量</param>
 void Player::MoveX(float dx)
 {
-	int screenW = 0;
-	int screenH = 0;
-	GetDrawScreenSize(&screenW, &screenH);
-
 	m_x += dx;
+	ClampToScreen(); // 画面から出ないにする
+}
 
-	if (m_x < PlayerConstants::HALF_WIDTH)
-	{
-		m_x = PlayerConstants::HALF_WIDTH;
+
+
+
+
+/// <summary>
+/// 画面外に出ないように位置を制限する
+/// </summary>
+void Player::ClampToScreen()
+{
+	const float minX = PlayerConstants::HALF_WIDTH;
+	const float maxX = static_cast<float>(Screen::WIDTH) - PlayerConstants::HALF_WIDTH;
+	// minX ～ maxX の範囲に自動で収める
+	m_x = std::clamp(m_x, minX, maxX);
+
+	// 地面の制限
+	if (m_y > PlayerConstants::GROUND_Y) {
+		m_y = PlayerConstants::GROUND_Y;
 	}
-	if (m_x > static_cast<float>(screenW) - PlayerConstants::HALF_WIDTH)
-	{
-		m_x = static_cast<float>(screenW) - PlayerConstants::HALF_WIDTH;
-	}
+}
+
+
+
+
+
+/// <summary>
+/// ダメージを受ける
+/// </summary>
+/// <param name="damage">受けるダメージの量</param>
+void Player::TakeDamage(int damage)
+{
+	// 無敵中は受けない
+	if (m_invincibleTimer > 0.0f) return;
+
+	m_hp -= damage;
+	if (m_hp < 0) m_hp = 0;
+	m_invincibleTimer = PlayerConstants::INVINCIBLE_TIME;
+}
+
+
+
+
+
+/// <summary>
+/// 位置の押し戻し（障害物や 敵との重なりを解消するため）
+/// </summary>
+/// <param name="pushOut">押し戻すベクトル</param>
+void Player::ApplyPushOut(const Vector2D& pushOut)
+{
+	m_x += pushOut.x;
+	m_y += pushOut.y;
+	ClampToScreen(); // 画面から出ないようにする
 }
 
 
@@ -314,26 +364,6 @@ Vector2D Player::GetAttackCenter() const
 float Player::GetAttackRadius() const
 {
 	return PlayerConstants::ATTACK_RADIUS;
-}
-
-
-
-/// <summary>
-/// 当たったことを記録する
-/// </summary>
-void Player::OnAttackHit()
-{
-	m_attackHit = true;
-}
-
-
-
-/// <summary>
-/// 当たった記録を消す（攻撃開始時に呼ぶ）
-/// </summary>
-void Player::ResetAttackHit()
-{
-	m_attackHit = false;
 }
 
 
