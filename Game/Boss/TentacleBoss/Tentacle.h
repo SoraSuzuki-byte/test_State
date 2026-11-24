@@ -8,8 +8,9 @@
 #include "Library/GameMath.h"
 #include <vector>
 #include <cmath>
-#include "IBossPartObserver.h"
-#include "BossPart.h"
+#include "Game/Boss/IBossPartObserver.h"
+#include "Game/Boss/BossPart.h"
+
 
 class Tentacle : public IBossPartObserver
 {

@@ -144,7 +144,7 @@
     <ClCompile Include="Game\Boss\States\PartBrokenState.cpp" />
     <ClCompile Include="Game\Boss\States\PartDamagedState.cpp" />
     <ClCompile Include="Game\Boss\States\PartNormalState.cpp" />
-    <ClCompile Include="Game\Boss\Tentacle.cpp" />
+    <ClCompile Include="Game\Boss\TentacleBoss\Tentacle.cpp" />
     <ClCompile Include="Game\Manager\InputManager.cpp" />
     <ClCompile Include="Game\Player\AirState.cpp" />
     <ClCompile Include="Game\Player\Player.cpp" />
@@ -156,13 +156,14 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClInclude Include="Game\Boss\BossConstants.h" />
     <ClInclude Include="Game\Boss\BossPart.h" />
-    <ClInclude Include="Game\Boss\BossPartState.h" />
     <ClInclude Include="Game\Boss\IBossPartObserver.h" />
+    <ClInclude Include="Game\Boss\States\BossPartState.h" />
     <ClInclude Include="Game\Boss\States\PartBrokenState.h" />
     <ClInclude Include="Game\Boss\States\PartDamagedState.h" />
     <ClInclude Include="Game\Boss\States\PartNormalState.h" />
-    <ClInclude Include="Game\Boss\Tentacle.h" />
+    <ClInclude Include="Game\Boss\TentacleBoss\Tentacle.h" />
     <ClInclude Include="Game\GameContext.h" />
     <ClInclude Include="Game\Manager\InputManager.h" />
     <ClInclude Include="Game\Player\AirState.h" />

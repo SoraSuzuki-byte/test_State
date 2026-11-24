@@ -18,7 +18,7 @@
 				  //PlayerState（プレイヤーの状態）を所有・管理するために std::unique_ptr<PlayerState> や std::make_unique を使用しており、その動的メモリ管理を自動化（自動破棄）するために必要な記述です。
 
 #include "GameContext.h"
-#include "Game/Boss/Tentacle.h"
+#include "Game/Boss/TentacleBoss/Tentacle.h"
 
 
 

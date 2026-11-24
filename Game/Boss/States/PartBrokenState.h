@@ -9,7 +9,7 @@
  */
 
 #pragma once
-#include "Game/Boss/BossPartState.h"
+#include "Game/Boss/States/BossPartState.h"
  // クラスの宣言 ===============================================================
 class BossPart;
 

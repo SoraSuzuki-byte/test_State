@@ -102,7 +102,7 @@ void Game::Update(float elapsedTime)
 		// ダメージは、攻撃中のときだけ
 			if (m_tentacle.IsAttacking())
 			{
-				m_player->TakeDamage(10);
+				m_player->TakeDamage(1);
 			}
 	}
 

@@ -11,7 +11,7 @@
 #include <memory>
 #include "Library/GameMath.h"
 #include "IBossPartObserver.h"
-#include "BossPartState.h"
+#include "Game/Boss/BossPart.h"
 #include "Game/Boss/States/PartNormalState.h"
 #include "Game/Boss/States/PartDamagedState.h"
 #include "Game/Boss/States/PartBrokenState.h"

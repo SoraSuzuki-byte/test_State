@@ -42,6 +42,9 @@
     <Filter Include="Game\Boss\States">
       <UniqueIdentifier>{ebc695a3-c996-4c7d-9428-4ef6e707d042}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Boss\TentacleBoss">
+      <UniqueIdentifier>{2bbeace1-4aa1-4dea-83ec-6205b94a145a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <!-- ファイル -->
   <ItemGroup>
@@ -99,9 +102,6 @@
     <ClCompile Include="Game\Manager\InputManager.cpp">
       <Filter>Game\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Boss\Tentacle.cpp">
-      <Filter>Game\Boss</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player\Player.cpp">
       <Filter>Game\Player</Filter>
     </ClCompile>
@@ -132,6 +132,9 @@
     <ClCompile Include="Game\Boss\States\PartBrokenState.cpp">
       <Filter>Game\Boss\States</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Boss\TentacleBoss\Tentacle.cpp">
+      <Filter>Game\Boss\TentacleBoss</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -148,12 +151,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameContext.h">
       <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Boss\BossPartState.h">
-      <Filter>Game\Boss</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Boss\Tentacle.h">
-      <Filter>Game\Boss</Filter>
     </ClInclude>
     <ClInclude Include="Library\GameMath.h">
       <Filter>Library</Filter>
@@ -196,6 +193,15 @@
     </ClInclude>
     <ClInclude Include="Game\Boss\States\PartBrokenState.h">
       <Filter>Game\Boss\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\BossConstants.h">
+      <Filter>Game\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\States\BossPartState.h">
+      <Filter>Game\Boss\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Boss\TentacleBoss\Tentacle.h">
+      <Filter>Game\Boss\TentacleBoss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
