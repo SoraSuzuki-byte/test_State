@@ -11,7 +11,7 @@
  /**
   * @brief 走り（緑）
   */
-#include "Game/Player/PlayerState.h"// 基底クラスを継承するので必須
+#include "Game/Player/States/PlayerState.h"// 基底クラスを継承するので必須
 class Player;
 
 

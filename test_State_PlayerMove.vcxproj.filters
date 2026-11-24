@@ -114,14 +114,8 @@
     <ClCompile Include="Game\Player\States\JumpState.cpp">
       <Filter>Game\Player\States</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Player\States\RunState .cpp">
-      <Filter>Game\Player\States</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Player\States\FallState.cpp">
       <Filter>Game\Player\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Player\AirState.cpp">
-      <Filter>Game\Player</Filter>
     </ClCompile>
     <ClCompile Include="Game\Boss\States\PartNormalState.cpp">
       <Filter>Game\Boss\States</Filter>
@@ -134,6 +128,12 @@
     </ClCompile>
     <ClCompile Include="Game\Boss\TentacleBoss\Tentacle.cpp">
       <Filter>Game\Boss\TentacleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\RunState.cpp">
+      <Filter>Game\Player\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Player\States\AirState.cpp">
+      <Filter>Game\Player\States</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +161,6 @@
     <ClInclude Include="Game\Player\Player.h">
       <Filter>Game\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Player\PlayerState.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Player\States\AttackState.h">
       <Filter>Game\Player\States</Filter>
     </ClInclude>
@@ -182,9 +179,6 @@
     <ClInclude Include="Game\Player\States\FallState.h">
       <Filter>Game\Player\States</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Player\AirState.h">
-      <Filter>Game\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Game\Boss\States\PartNormalState.h">
       <Filter>Game\Boss\States</Filter>
     </ClInclude>
@@ -202,6 +196,12 @@
     </ClInclude>
     <ClInclude Include="Game\Boss\TentacleBoss\Tentacle.h">
       <Filter>Game\Boss\TentacleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\PlayerState.h">
+      <Filter>Game\Player\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Player\States\AirState.h">
+      <Filter>Game\Player\States</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

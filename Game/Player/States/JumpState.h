@@ -8,7 +8,7 @@
  * @date   2026年11月5日
  */
 #pragma once
-#include "Game/Player/AirState.h"// 基底クラスを継承するので必須
+#include "AirState.h"// 基底クラスを継承するので必須
 class Player;
 
  /**
