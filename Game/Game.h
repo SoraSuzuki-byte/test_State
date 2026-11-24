@@ -18,13 +18,12 @@
 				  //PlayerState（プレイヤーの状態）を所有・管理するために std::unique_ptr<PlayerState> や std::make_unique を使用しており、その動的メモリ管理を自動化（自動破棄）するために必要な記述です。
 
 #include "GameContext.h"
-#include "Game/Boss/OctopusBoss/Tentacle.h"
 
 
 
 // クラスの宣言 ===============================================================
 class Player;
-
+class Boss;
 
 
 // クラスの定義 ===============================================================
@@ -49,9 +48,8 @@ private:
 	// プレイヤー（Idleは青、Runは緑、Jumpは黄、Attackは赤）
 	std::unique_ptr<Player> m_player;
 
-	// ボスの触手（節の BossPart を持つ）　Tentacleインスタンスを生成
-	Tentacle m_tentacle;
-
+	// 触手ボス
+	std::unique_ptr<Boss> m_boss;
 
 // メンバ関数の宣言 -------------------------------------------------
 // コンストラクタ/デストラクタ

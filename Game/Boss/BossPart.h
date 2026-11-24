@@ -35,7 +35,7 @@ private:
 	// 部位破壊などのイベントを通知するオブジェクト（通知先）
 	IBossPartObserver* m_observer{ nullptr };
 
-	// 何番目の節か
+	// 何番目の部位か
 	int m_index{};
 
 	// 現在のHP
@@ -84,7 +84,7 @@ public:
 	// 最大HPを取得する
 	int GetMaxHp() const;
 
-	// 節の描画に使う
+	// 部位の描画に使う
 	Vector2D GetCenter() const { return m_centerPosition; }
 	float GetRadius() const { return m_radius; }
 

@@ -162,6 +162,7 @@
     <ClInclude Include="Game\Boss\BossConstants.h" />
     <ClInclude Include="Game\Boss\BossPart.h" />
     <ClInclude Include="Game\Boss\IBossPartObserver.h" />
+    <ClInclude Include="Game\Boss\OctopusBoss\ITentacleObserver.h" />
     <ClInclude Include="Game\Boss\OctopusBoss\OctopusBoss.h" />
     <ClInclude Include="Game\Boss\OctopusBoss\Tentacle.h" />
     <ClInclude Include="Game\Boss\States\BossPartState.h" />

@@ -213,5 +213,8 @@
     <ClInclude Include="Game\Boss\OctopusBoss\Tentacle.h">
       <Filter>Game\Boss\OctopusOBoss</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Boss\OctopusBoss\ITentacleObserver.h">
+      <Filter>Game\Boss\OctopusOBoss</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

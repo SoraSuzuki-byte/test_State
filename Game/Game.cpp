@@ -13,6 +13,7 @@
 #include "Game/Screen.h"
 #include "Game/Player/PlayerConstants.h"
 #include "Game/Player/Player.h"
+#include "Game/Boss/OctopusBoss/OctopusBoss.h"
 
 
 // メンバ関数の定義 ===========================================================
@@ -25,10 +26,10 @@ Game::Game()
 	: m_inputManager{}
 	, m_gameContext	{ m_inputManager }
 	, m_player		{ nullptr }
-	, m_tentacle    { Vector2D(300.0f, 250.0f) }// 触手の付け根の位置
 {
 	// 乱数の初期値を設定
 	SRand(static_cast<int>(time(nullptr)));
+	m_boss = std::make_unique<OctopusBoss>();
 }
 
 
@@ -81,8 +82,8 @@ void Game::Update(float elapsedTime)
 	// Playerの攻撃が触手に当たるか
 	if (m_player->CanDealAttackDamage()) // 攻撃判定を出せるなら
 	{
-		// 当たった節へダメージを与え、当たった節の個数を取得する
-		const int hitCount = m_tentacle.TakeDamageByCircle(
+		// 当たった部位へダメージを与え、当たった部位の個数を取得する
+		const int hitCount = m_boss->TakeDamageByCircle(
 			m_player->GetAttackCenter(),
 			m_player->GetAttackRadius(),
 			PlayerConstants::ATTACK_DAMAGE,
@@ -90,17 +91,18 @@ void Game::Update(float elapsedTime)
 	}
 
 	m_player->Update(elapsedTime, keyCondition, keyTrigger);
-	m_tentacle.Update(elapsedTime);
+	m_boss->Update(elapsedTime);
+	m_boss->Update(elapsedTime);
 
 	// 触手とPlayerの体の判定（押し戻しと、触手が攻撃中ならPlayerにダメージを与える）
 	Vector2D pushOut;
-	if (m_tentacle.IsCollidingWithCircle(m_player->GetBodyCenter(), m_player->GetBodyRadius(), pushOut))
+	if (m_boss->IsCollidingWithCircle(m_player->GetBodyCenter(), m_player->GetBodyRadius(), pushOut))
 	{
 		// 触れていれば、攻撃中でなくても押し戻す
 		m_player->ApplyPushOut(pushOut);
 
 		// ダメージは、攻撃中のときだけ
-			if (m_tentacle.IsAttacking())
+			if (m_boss->IsAttacking())
 			{
 				m_player->TakeDamage(1);
 			}
@@ -127,7 +129,7 @@ void Game::Render()
 	// プレイヤー
 	m_player->Render();
 
-	m_tentacle.Render();
+	m_boss->Render();
 
 	// 操作説明
 	DrawString(10, 30, L"←→:移動  Z:ジャンプ  X:攻撃", GetColor(200, 200, 200));

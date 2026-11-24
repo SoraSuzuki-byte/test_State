@@ -62,7 +62,7 @@ static_cast<int>(m_centerPosition.x),
 /// <returns>当たったか</returns>
 bool BossPart::IsHit(const Vector2D& center, float radius) const
 {
-	if (IsBroken()) return false; // 壊れた節には当たらない
+	if (IsBroken()) return false; // 壊れた部位には当たらない
 
 	const float dx = m_centerPosition.x - center.x;
 	const float dy = m_centerPosition.y - center.y;
@@ -216,9 +216,9 @@ bool BossPart::TakeDamageFromAttack(int damage, int attackId)
 /// <returns>円と重なっているかどうか</returns>
 bool BossPart::CalcPushOut(const Vector2D& center, float radius, Vector2D& pushOut) const
 {
-	if (IsBroken()) return false; // 壊れた節は、すり抜ける
+	if (IsBroken()) return false; // 壊れた部位は、すり抜ける
 
-	// 節からPlayerへ向かうベクトル
+	// 部位からPlayerへ向かうベクトル
 	const float dx = center.x - m_centerPosition.x;
 	const float dy = center.y - m_centerPosition.y;
 	const float r  = m_radius + radius;
@@ -237,7 +237,7 @@ bool BossPart::CalcPushOut(const Vector2D& center, float radius, Vector2D& pushO
 	}
 
 
-	// めり込んだ深さの分、節から離れる向きに押す
+	// めり込んだ深さの分、部位から離れる向きに押す
 	{
 		const float dist = std::sqrt(distSq); // 正確な大きさを使うため、2乗をもとの1乗に戻す（2乗は、大きさの比較なら使えた）
 
